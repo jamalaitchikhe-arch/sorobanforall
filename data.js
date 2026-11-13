@@ -1,7 +1,7 @@
 /* Soroban for All — data file, generated from the teacher space. Each group's content is encrypted with its secret code. */
 window.SFA_DATA = {
  "version": 3,
- "updated": "2026-11-12T23:10:28.270Z",
+ "updated": "2026-11-13T00:20:00.000Z",
  "settings": {
   "whatsapp": "212706600479"
  },
@@ -27,6 +27,17 @@ window.SFA_DATA = {
    "pinned": false,
    "title_fr": "Horaires des séances",
    "body_fr": "Les horaires de chaque groupe sont publiés ici chaque semaine. Consultez régulièrement cette page."
+  },
+  {
+   "id": 3,
+   "title": "✨ جديد: مسابقة رحلة الأبطال 🏆",
+   "body": "انطلقت مسابقة «رحلة الأبطال» على المنصة! حرّر العوالم الستة، اهزم الحرّاس واجمع النجوم، ثم واجه إمبراطور الأرقام لتفوز بالكأس الذهبية ولقب «العقل العبقري».\nالمشاركة مجانية لكل الأطفال خلال فترة التجربة. أرسل شهادتك للأستاذ عبر واتساب لنحتفل بك 🎉",
+   "title_fr": "✨ Nouveau : le concours de l'aventure des champions 🏆",
+   "body_fr": "Le concours « L'aventure des champions » est lancé ! Libère les six mondes, bats les gardiens, collectionne les étoiles, puis affronte l'Empereur des nombres pour gagner la coupe d'or et le titre de « Cerveau génial ».\nParticipation gratuite pour tous les enfants pendant la période d'essai. Envoie ton diplôme à l'enseignant sur WhatsApp pour qu'on te félicite 🎉",
+   "tag": "مسابقة",
+   "date": "2026-11-13",
+   "url": "https://sorobanforall.com/#journey",
+   "pinned": true
   }
  ],
  "groups": [

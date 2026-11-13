@@ -363,6 +363,43 @@ nav a.navj.on{color:#1a1200}
   body.printing-cert .jx, body.printing-cert .jbox > .row{display:none!important}
   .cert{border-radius:0}
 }
+
+/* ===== إعلان المسابقة ===== */
+.comp{position:relative;display:grid;grid-template-columns:300px 1fr;align-items:center;gap:10px 26px;margin:6px 0 26px;padding:26px 30px;border-radius:28px;overflow:hidden;text-decoration:none;color:var(--text);
+  background:radial-gradient(circle at 18% 50%,rgba(245,197,66,.28),transparent 45%),radial-gradient(circle at 90% 0,rgba(79,163,255,.28),transparent 50%),linear-gradient(135deg,#1d1450 0%,#123069 45%,#0a1a36 100%);
+  border:2px solid rgba(245,197,66,.65);box-shadow:0 0 0 1px rgba(255,255,255,.05) inset,0 18px 50px rgba(0,0,0,.5),0 0 40px rgba(245,197,66,.18);transition:transform .25s,box-shadow .25s}
+[dir=rtl] .comp{background:radial-gradient(circle at 82% 50%,rgba(245,197,66,.28),transparent 45%),radial-gradient(circle at 10% 0,rgba(79,163,255,.28),transparent 50%),linear-gradient(225deg,#1d1450 0%,#123069 45%,#0a1a36 100%)}
+.comp:hover{transform:translateY(-4px);box-shadow:0 22px 60px rgba(0,0,0,.55),0 0 60px rgba(245,197,66,.3)}
+.comp::after{content:"";position:absolute;inset:0;background-image:radial-gradient(1.5px 1.5px at 20% 30%,#fff8,transparent),radial-gradient(1.5px 1.5px at 70% 20%,#fff6,transparent),radial-gradient(1px 1px at 40% 80%,#fff7,transparent),radial-gradient(1.5px 1.5px at 85% 70%,#fff5,transparent),radial-gradient(1px 1px at 55% 45%,#fff6,transparent);pointer-events:none;animation:twinkle 3s ease-in-out infinite}
+.crays{position:absolute;width:640px;height:640px;top:50%;inset-inline-start:150px;transform:translate(-50%,-50%);background:repeating-conic-gradient(from 0deg,rgba(245,197,66,.13) 0 9deg,transparent 9deg 22deg);border-radius:50%;-webkit-mask:radial-gradient(circle,#000 18%,transparent 62%);mask:radial-gradient(circle,#000 18%,transparent 62%);animation:spin 40s linear infinite;pointer-events:none}
+[dir=rtl] .crays{transform:translate(50%,-50%)}
+.cnew{position:absolute;top:18px;inset-inline-end:-46px;z-index:3;transform:rotate(38deg);background:linear-gradient(135deg,#ff5d6c,#ff7a00);color:#fff;font-weight:900;padding:6px 56px;font-size:1rem;box-shadow:0 4px 14px rgba(0,0,0,.4);letter-spacing:.5px;animation:newpulse 1.8s ease-in-out infinite}
+[dir=rtl] .cnew{transform:rotate(-38deg)}
+.cart{position:relative;height:300px;display:grid;place-items:center}
+.chalo{position:absolute;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle,rgba(255,226,140,.75),rgba(247,147,30,.25) 45%,transparent 70%);filter:blur(4px);animation:pulse 2.4s ease-in-out infinite}
+.ctrophy{position:relative;width:210px;height:auto;filter:drop-shadow(0 14px 22px rgba(0,0,0,.5)) drop-shadow(0 0 18px rgba(245,197,66,.45));animation:float 3.2s ease-in-out infinite;z-index:2}
+.ctrophy .sweep{animation:sweep 3.5s ease-in-out infinite}
+.cbead{position:absolute;width:30px;height:17px;border-radius:50%;z-index:1;background:radial-gradient(circle at 40% 35%,#ffe08a,#f7931e);box-shadow:0 0 14px rgba(247,147,30,.7);animation:orbitb 6s ease-in-out infinite}
+.cbead.b2,.cbead.b4{background:radial-gradient(circle at 40% 35%,#9cc8ff,#2f6fe0);box-shadow:0 0 14px rgba(79,163,255,.7)}
+.b1{top:22%;left:6%}.b2{top:12%;right:10%;animation-delay:-1.5s}.b3{bottom:20%;left:2%;animation-delay:-3s}.b4{bottom:30%;right:2%;animation-delay:-4.5s}.b5{top:48%;right:-2%;animation-delay:-2s}
+.spk{position:absolute;color:#fff6c9;font-style:normal;z-index:3;text-shadow:0 0 10px #ffd86b;animation:spark 2.2s ease-in-out infinite}
+.s1{top:8%;left:30%;font-size:1.4rem}.s2{top:30%;right:16%;font-size:1rem;animation-delay:-.6s}.s3{bottom:34%;left:16%;font-size:1.2rem;animation-delay:-1.2s}.s4{bottom:16%;right:22%;font-size:1.5rem;animation-delay:-1.8s}.s5{top:16%;left:62%;font-size:.9rem;animation-delay:-.9s}.s6{top:52%;left:4%;font-size:1rem;animation-delay:-1.5s}
+.ctext{position:relative;z-index:2}
+.ckick{display:inline-block;font-weight:900;color:#1a1200;background:linear-gradient(135deg,var(--gold),var(--orange));border-radius:99px;padding:4px 14px;font-size:.95rem;box-shadow:0 4px 14px rgba(247,147,30,.35)}
+.comp h2{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;margin:10px 0 6px;background:linear-gradient(90deg,#fff,#fff3c4,var(--gold),#fff);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4s linear infinite;padding-inline-end:.2em}
+.comp p{color:#d9e6ff;font-size:1.06rem;margin:0 0 12px;max-width:620px}
+.cfeat{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.cfeat span{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:5px 12px;font-weight:700;font-size:.92rem;backdrop-filter:blur(4px)}
+.ccta{animation:glow 1.8s ease-in-out infinite}
+.cfree{display:block;margin-top:8px;color:#9fe3c4;font-weight:700}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-14px) rotate(1.5deg)}}
+@keyframes sweep{0%,30%{transform:rotate(18deg) translateX(0)}70%,100%{transform:rotate(18deg) translateX(330px)}}
+@keyframes orbitb{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(8px,-12px) rotate(20deg)}50%{transform:translate(-6px,-20px) rotate(-10deg)}75%{transform:translate(-10px,-6px) rotate(10deg)}}
+@keyframes spark{0%,100%{opacity:0;transform:scale(.4) rotate(0)}50%{opacity:1;transform:scale(1.2) rotate(45deg)}}
+@keyframes twinkle{0%,100%{opacity:.5}50%{opacity:1}}
+@keyframes newpulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.25)}}
+@media(max-width:760px){.comp{grid-template-columns:1fr;text-align:center;padding:22px 16px}.cart{height:230px}.ctrophy{width:160px}.chalo{width:180px;height:180px}.cfeat{justify-content:center}.crays{inset-inline-start:50%;top:130px}.comp p{margin-inline:auto}}
+@media (prefers-reduced-motion:reduce){.comp *,.comp::after{animation:none!important}}
 </style>
 </head>
 <body>
@@ -403,6 +440,9 @@ nav a.navj.on{color:#1a1200}
 /* ================= الترجمة / Traduction ================= */
 const I18N = {
 ar:{
+ compNew:"✨ جديد", compKick:"🏆 مسابقة رحلة الأبطال", compTitle:"من سيكون «العقل العبقري» الأول؟",
+ compText:"ادخل المغامرة، حرّر العوالم الستة، اهزم الحرّاس واجمع النجوم… ثم واجه إمبراطور الأرقام لتفوز بالكأس الذهبية! أرسل شهادتك للأستاذ عبر واتساب لنحتفل بك.",
+ compF1:"6 عوالم", compF2:"حرّاس أقوياء", compF3:"نجوم ومكافآت", compF4:"شهادة باسمك", compCta:"🚀 شارك في المسابقة الآن", compFree:"مجانية لكل الأطفال خلال فترة التجربة",
  brand:"سوروبان للجميع", navJourney:"🏆 رحلة الأبطال", jPromoT:"🏆 رحلة الأبطال — مجاناً!", jPromoD:"6 عوالم، حرّاس، نجوم ومكافآت… حتى الكأس الذهبية ولقب «العقل العبقري». متاحة للجميع مجاناً خلال فترة التجربة.", jPromoB:"🚀 ابدأ المغامرة", navHome:"الرئيسية", navAnn:"الإعلانات", navGroups:"المجموعات", langSwitch:"Français",
  slogan:"نكتشف المواهب، ونصنع مهارات المستقبل", teacherSpace:"فضاء الأستاذ",
  group:"المجموعة", heroTag:"منصة الحساب الذهني", heroT1:"سوروبان", heroT2:"للجميع",
@@ -460,6 +500,9 @@ ar:{
  applied:"تم تطبيق التعديلات للمعاينة ✔", downloaded:"تم تحميل data.js ✔", copyBelow:"انسخ المحتوى من المربع أدناه", copied:"تم النسخ ✔", copyManual:"انسخ يدوياً من المربع"
 },
 fr:{
+ compNew:"✨ Nouveau", compKick:"🏆 Concours : l'aventure des champions", compTitle:"Qui sera le premier « Cerveau génial » ?",
+ compText:"Entre dans l'aventure, libère les six mondes, bats les gardiens et collectionne les étoiles… puis affronte l'Empereur des nombres pour gagner la coupe d'or ! Envoie ton diplôme à l'enseignant sur WhatsApp pour qu'on te félicite.",
+ compF1:"6 mondes", compF2:"Gardiens redoutables", compF3:"Étoiles et récompenses", compF4:"Diplôme à ton nom", compCta:"🚀 Participer au concours", compFree:"Gratuit pour tous les enfants pendant la période d'essai",
  brand:"Soroban pour tous", navJourney:"🏆 Aventure", jPromoT:"🏆 L'aventure des champions — gratuite !", jPromoD:"6 mondes, des gardiens, des étoiles et des récompenses… jusqu'à la coupe d'or et le titre de « Cerveau génial ». Gratuite pendant la période d'essai.", jPromoB:"🚀 Commencer l'aventure", navHome:"Accueil", navAnn:"Annonces", navGroups:"Groupes", langSwitch:"العربية",
  slogan:"Nous révélons les talents et construisons les compétences de demain", teacherSpace:"Espace enseignant",
  group:"Groupe", heroTag:"Plateforme de calcul mental", heroT1:"Soroban", heroT2:"pour tous",
@@ -619,9 +662,50 @@ function annCard(a){
 }
 const sortedAnn = () => [...(D.announcements||[])].sort((x,y)=> (y.pinned?1:0)-(x.pinned?1:0) || String(y.date).localeCompare(String(x.date)));
 const emptyBox = (ico, msg) => `<div class="empty"><div class="ico">${ico}</div>${msg}</div>`;
+const TROPHY_SVG = `<svg class="ctrophy" viewBox="0 0 240 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<defs>
+ <linearGradient id="gold1" x1="0" x2="1"><stop offset="0" stop-color="#7a4a06"/><stop offset=".18" stop-color="#d79a1e"/><stop offset=".35" stop-color="#fff1b8"/><stop offset=".5" stop-color="#f5c542"/><stop offset=".72" stop-color="#b9780f"/><stop offset=".88" stop-color="#e9b43a"/><stop offset="1" stop-color="#6b3f05"/></linearGradient>
+ <linearGradient id="gold2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6cf"/><stop offset=".4" stop-color="#f5c542"/><stop offset="1" stop-color="#8a5508"/></linearGradient>
+ <linearGradient id="wood" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a2410"/><stop offset="1" stop-color="#1b0f05"/></linearGradient>
+ <radialGradient id="gem" cx=".35" cy=".35"><stop offset="0" stop-color="#bfe0ff"/><stop offset=".6" stop-color="#2f80ed"/><stop offset="1" stop-color="#0b3a85"/></radialGradient>
+ <linearGradient id="shine" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+ <clipPath id="cupclip"><path d="M58 40h124c0 0 4 62-14 92-12 20-32 30-48 32-16-2-36-12-48-32C54 102 58 40 58 40z"/></clipPath>
+</defs>
+<ellipse cx="120" cy="268" rx="88" ry="9" fill="#000" opacity=".35"/>
+<path d="M60 52C22 46 18 104 74 118" fill="none" stroke="url(#gold1)" stroke-width="13" stroke-linecap="round"/>
+<path d="M180 52c38-6 42 52-14 66" fill="none" stroke="url(#gold1)" stroke-width="13" stroke-linecap="round"/>
+<path d="M58 40h124c0 0 4 62-14 92-12 20-32 30-48 32-16-2-36-12-48-32C54 102 58 40 58 40z" fill="url(#gold1)"/>
+<ellipse cx="120" cy="40" rx="62" ry="10" fill="url(#gold2)"/><ellipse cx="120" cy="41" rx="54" ry="6" fill="#7a4a06" opacity=".55"/>
+<g clip-path="url(#cupclip)"><rect class="sweep" x="-60" y="20" width="46" height="170" fill="url(#shine)" transform="rotate(18)"/></g>
+<path d="M120 70l7.6 15.4 17 2.5-12.3 12 2.9 16.9L120 108.8l-15.2 8 2.9-16.9-12.3-12 17-2.5z" fill="#fff4c2" stroke="#a86b0c" stroke-width="2"/>
+<path d="M106 162h28l6 30h-40z" fill="url(#gold1)"/>
+<rect x="92" y="190" width="56" height="12" rx="4" fill="url(#gold2)"/>
+<path d="M70 204h100l10 50H60z" fill="url(#wood)"/>
+<rect x="88" y="218" width="64" height="22" rx="3" fill="url(#gold1)"/>
+<circle cx="120" cy="229" r="7" fill="url(#gem)"/>
+<path d="M70 204h100" stroke="#6b4420" stroke-width="2"/>
+</svg>`;
 function viewHome(){
   const ann = sortedAnn().slice(0,3);
   app.innerHTML = `
+  <a class="comp" href="#journey">
+    <div class="crays"></div>
+    <span class="cnew">${t("compNew")}</span>
+    <div class="cart">
+      <div class="chalo"></div>
+      ${TROPHY_SVG}
+      <i class="cbead b1"></i><i class="cbead b2"></i><i class="cbead b3"></i><i class="cbead b4"></i><i class="cbead b5"></i>
+      <i class="spk s1">✦</i><i class="spk s2">✦</i><i class="spk s3">✧</i><i class="spk s4">✦</i><i class="spk s5">✧</i><i class="spk s6">✦</i>
+    </div>
+    <div class="ctext">
+      <div class="ckick">${t("compKick")}</div>
+      <h2>${t("compTitle")}</h2>
+      <p>${t("compText")}</p>
+      <div class="cfeat"><span>🗺️ ${t("compF1")}</span><span>⚔️ ${t("compF2")}</span><span>⭐ ${t("compF3")}</span><span>🏅 ${t("compF4")}</span></div>
+      <span class="btn big-btn ccta">${t("compCta")}</span>
+      <small class="cfree">${t("compFree")}</small>
+    </div>
+  </a>
   <section class="hero">
     <div>
       <span class="tag gold">${t("heroTag")}</span>
@@ -638,7 +722,6 @@ function viewHome(){
     <div class="stat"><b>📝</b><span>${t("stHw")}</span></div>
     <div class="stat"><b>🏆</b><span>${t("stGames")}</span></div>
   </div>
-  <a class="jpromo" href="#journey"><div class="jpi">🏆</div><div class="jpt"><b>${t("jPromoT")}</b><span>${t("jPromoD")}</span></div><span class="btn">${t("jPromoB")}</span></a>
   <div class="sec-title"><h2>${t("latestAnn")}</h2><a class="btn sm ghost" href="#announcements">${t("all")}</a></div>
   ${ann.length ? `<div class="grid g2">${ann.map(annCard).join("")}</div>` : emptyBox("📭", t("noAnn"))}
   <div class="sec-title"><h2>${t("groupsTitle")}</h2></div>
