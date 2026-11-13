@@ -446,6 +446,23 @@ nav a.navj.on{color:#1a1200}
 .fbreward{display:inline-block;margin:4px 0 6px;color:var(--gold);font-weight:800;background:rgba(245,197,66,.1);border:1px dashed rgba(245,197,66,.5);border-radius:12px;padding:5px 12px}
 .fbsend{background:linear-gradient(135deg,#3ee07a,#1fa855);color:#fff}
 .fbdone{padding:20px 6px}.fbbig{font-size:4rem;animation:pop .6s both}.fbcoins{color:var(--gold);font-weight:800;font-size:1.1rem}
+
+/* ===== شريط الإحصائيات والشهادات ===== */
+.statband{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:22px 0 6px;padding:18px;border-radius:24px;background:linear-gradient(135deg,rgba(79,163,255,.10),rgba(245,197,66,.08));border:1px solid var(--line);box-shadow:var(--shadow)}
+.sb{text-align:center;padding:12px 6px;border-radius:18px;background:rgba(8,20,45,.55);border:1px solid rgba(255,255,255,.06);transition:transform .2s,border-color .2s}
+.sb:hover{transform:translateY(-4px);border-color:rgba(245,197,66,.5)}
+.sbi{font-size:1.9rem;line-height:1.2}
+.sb b{font-size:clamp(1.7rem,4vw,2.3rem);font-weight:900;background:linear-gradient(180deg,#fff2bf,var(--gold) 55%,var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.sb .plus{margin-inline-start:2px}
+.sb span{display:block;color:#c9d7f2;font-weight:700;font-size:.92rem}
+.testis{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.testi{position:relative;margin:0;padding:22px 20px 16px;border-radius:22px;background:linear-gradient(180deg,#14305f,#0b1b3a);border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden}
+.tq{position:absolute;top:-18px;inset-inline-end:14px;font-size:6rem;line-height:1;color:rgba(245,197,66,.16);font-family:Georgia,serif}
+.tst{color:var(--gold);letter-spacing:2px}
+.testi blockquote{margin:8px 0 14px;color:#e2ebfb;line-height:1.8}
+.testi figcaption{display:flex;align-items:center;gap:10px}
+.tav{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:900;color:#1a1200;background:linear-gradient(135deg,var(--gold),var(--orange))}
+.testi figcaption small{display:block;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -489,6 +506,9 @@ ar:{
  compNew:"✨ جديد", compKick:"🏆 مسابقة رحلة الأبطال", compTitle:"من سيكون «العقل العبقري» الأول؟",
  compText:"ادخل المغامرة، حرّر العوالم الستة، اهزم الحرّاس واجمع النجوم… ثم واجه إمبراطور الأرقام لتفوز بالكأس الذهبية! أرسل شهادتك للأستاذ عبر واتساب لنحتفل بك.",
  compF1:"6 عوالم", compF2:"حرّاس أقوياء", compF3:"نجوم ومكافآت", compF4:"شهادة باسمك", compCta:"🚀 شارك في المسابقة الآن", compFree:"🎁 مجاناً",
+ stStudents:"متدرب ومتدربة", stGroupsN:"مجموعات", stExercises:"تمريناً تفاعلياً", stWorlds:"عوالم في رحلة الأبطال", stGamesN:"ألعاب ذهنية", stBadges:"أوسمة وشهادات", stYears:"سنوات من الخبرة", testiTitle:"💬 قالوا عنّا",
+ setStats:"📊 أرقام المنصة", setStudents:"عدد المتدربين الحقيقي (اتركه فارغاً لإخفائه)", setYears:"سنوات الخبرة (اختياري)", setStatsD:"تظهر هذه الأرقام في الصفحة الرئيسية. اكتب الأرقام الحقيقية فقط.",
+ testiAdm:"💬 آراء أولياء الأمور والتلاميذ", testiAdmD:"أضف آراءً حقيقية فقط وبإذن أصحابها (الاسم الأول يكفي).", tName:"الاسم *", tRole:"الصفة (مثال: ولية أمر، تلميذ في المجموعة 1)", tText:"الرأي *", tStars:"التقييم", noTesti:"لا توجد آراء بعد",
  brand:"سوروبان للجميع", navJourney:"🏆 رحلة الأبطال", jPromoT:"🏆 رحلة الأبطال — مجاناً!", jPromoD:"6 عوالم، حرّاس، نجوم ومكافآت… حتى الكأس الذهبية ولقب «العقل العبقري». مجاناً.", jPromoB:"🚀 ابدأ المغامرة", navHome:"الرئيسية", navAnn:"الإعلانات", navGroups:"المجموعات", langSwitch:"Français",
  slogan:"نكتشف المواهب، ونصنع مهارات المستقبل", teacherSpace:"فضاء الأستاذ",
  group:"المجموعة", heroTag:"منصة الحساب الذهني", heroT1:"سوروبان", heroT2:"للجميع",
@@ -549,6 +569,9 @@ fr:{
  compNew:"✨ Nouveau", compKick:"🏆 Concours : l'aventure des champions", compTitle:"Qui sera le premier « Cerveau génial » ?",
  compText:"Entre dans l'aventure, libère les six mondes, bats les gardiens et collectionne les étoiles… puis affronte l'Empereur des nombres pour gagner la coupe d'or ! Envoie ton diplôme à l'enseignant sur WhatsApp pour qu'on te félicite.",
  compF1:"6 mondes", compF2:"Gardiens redoutables", compF3:"Étoiles et récompenses", compF4:"Diplôme à ton nom", compCta:"🚀 Participer au concours", compFree:"🎁 Gratuit",
+ stStudents:"apprenants", stGroupsN:"groupes", stExercises:"exercices interactifs", stWorlds:"mondes dans l'aventure", stGamesN:"jeux de calcul", stBadges:"médailles et diplômes", stYears:"années d'expérience", testiTitle:"💬 Ils parlent de nous",
+ setStats:"📊 Chiffres de la plateforme", setStudents:"Nombre réel d'apprenants (vide = masqué)", setYears:"Années d'expérience (facultatif)", setStatsD:"Ces chiffres s'affichent sur la page d'accueil. N'indique que des chiffres réels.",
+ testiAdm:"💬 Avis des parents et des élèves", testiAdmD:"N'ajoute que des avis réels, avec l'accord de leurs auteurs (le prénom suffit).", tName:"Nom *", tRole:"Qualité (ex. : maman d'élève, élève du groupe 1)", tText:"Avis *", tStars:"Note", noTesti:"Aucun avis pour l'instant",
  brand:"Soroban pour tous", navJourney:"🏆 Aventure", jPromoT:"🏆 L'aventure des champions — gratuite !", jPromoD:"6 mondes, des gardiens, des étoiles et des récompenses… jusqu'à la coupe d'or et le titre de « Cerveau génial ». Gratuite.", jPromoB:"🚀 Commencer l'aventure", navHome:"Accueil", navAnn:"Annonces", navGroups:"Groupes", langSwitch:"العربية",
  slogan:"Nous révélons les talents et construisons les compétences de demain", teacherSpace:"Espace enseignant",
  group:"Groupe", heroTag:"Plateforme de calcul mental", heroT1:"Soroban", heroT2:"pour tous",
@@ -762,16 +785,45 @@ function viewHome(){
     </div>
     <div class="hero-art"><div class="ring"><img src="logo-soroban.png" alt=""></div></div>
   </section>
-  <div class="stats">
-    <div class="stat"><b>${D.groups.length}</b><span>${t("stGroups")}</span></div>
-    <div class="stat"><b>🎥</b><span>${t("stRec")}</span></div>
-    <div class="stat"><b>📝</b><span>${t("stHw")}</span></div>
-    <div class="stat"><b>🏆</b><span>${t("stGames")}</span></div>
-  </div>
+  ${statsBand()}
   <div class="sec-title"><h2>${t("latestAnn")}</h2><a class="btn sm ghost" href="#announcements">${t("all")}</a></div>
   ${ann.length ? `<div class="grid g2">${ann.map(annCard).join("")}</div>` : emptyBox("📭", t("noAnn"))}
   <div class="sec-title"><h2>${t("groupsTitle")}</h2></div>
-  ${groupsGrid()}`;
+  ${groupsGrid()}
+  ${testimonialsSection()}`;
+  animateCounters();
+}
+/* ===== الإحصائيات (أرقام حقيقية فقط) والشهادات ===== */
+function statsBand(){
+  const WB = window.SFA_WB, exCount = WB ? WB.lessons.reduce((a,l)=>a+l.ex.length+(l.c7||[]).length+(l.c15||[]).length,0) : 0;
+  const st = D.settings || {};
+  const items = [];
+  if(+st.students > 0) items.push({n:+st.students, plus:true, ico:"👨‍🎓", l:t("stStudents")});
+  items.push({n:D.groups.length, ico:"👥", l:t("stGroupsN")});
+  if(exCount) items.push({n:exCount, ico:"✏️", l:t("stExercises")});
+  if(WB) items.push({n:WB.lessons.length, ico:"🗺️", l:t("stWorlds")});
+  items.push({n:4, ico:"🎮", l:t("stGamesN")});
+  items.push({n:10, ico:"🏅", l:t("stBadges")});
+  if(+st.years > 0) items.push({n:+st.years, plus:true, ico:"📅", l:t("stYears")});
+  return `<section class="statband">${items.slice(0,6).map(it=>`<div class="sb"><div class="sbi">${it.ico}</div><b class="cnt" data-to="${it.n}">0</b>${it.plus?'<b class="plus">+</b>':""}<span>${it.l}</span></div>`).join("")}</section>`;
+}
+function animateCounters(){
+  const els = document.querySelectorAll(".cnt[data-to]");
+  const run = el => { const to = +el.dataset.to, t0 = performance.now(), dur = 1400;
+    const step = now => { const p = Math.min(1,(now-t0)/dur), e = 1-Math.pow(1-p,3); el.textContent = Math.round(to*e).toLocaleString(LANG==="ar"?"ar-MA":"fr-FR"); if(p<1) requestAnimationFrame(step); };
+    requestAnimationFrame(step); };
+  if(!("IntersectionObserver" in window)){ els.forEach(run); return; }
+  const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ run(e.target); io.unobserve(e.target); } }), {threshold:.4});
+  els.forEach(el => io.observe(el));
+}
+function testimonialsSection(){
+  const list = (D.testimonials||[]).filter(x => x && x.text);
+  if(!list.length) return "";
+  return `<div class="sec-title"><h2>${t("testiTitle")}</h2></div>
+  <div class="testis">${list.map(x=>{ const r = Math.max(0,Math.min(5,+x.stars||5));
+    return `<figure class="testi"><div class="tq">“</div><div class="tst">${"★".repeat(r)}${"☆".repeat(5-r)}</div>
+      <blockquote dir="auto">${esc(x.text)}</blockquote>
+      <figcaption><span class="tav">${esc((x.name||"?").trim().charAt(0))}</span><span><b dir="auto">${esc(x.name||"")}</b><small dir="auto">${esc(x.role||"")}</small></span></figcaption></figure>`; }).join("")}</div>`;
 }
 function viewAnn(){
   const list = sortedAnn();
@@ -1178,7 +1230,7 @@ function viewAdmin(){
         for(const g of D.groups){ const code = codes[g.id]; let content = {recordings:[],homework:[],games:[],challenge:{}};
           try{ content = await decryptJSON(g.blob, code); }catch(err){}
           groups.push({id:g.id, code, content}); }
-        A = {pass, announcements: JSON.parse(JSON.stringify(D.announcements||[])), groups, settings: Object.assign({}, D.settings)};
+        A = {pass, announcements: JSON.parse(JSON.stringify(D.announcements||[])), testimonials: JSON.parse(JSON.stringify(D.testimonials||[])), groups, settings: Object.assign({}, D.settings)};
         viewAdmin();
       }catch(err){ $("#admE").textContent = t("badPass"); btn.disabled=false; btn.textContent=t("enter"); }
     };
@@ -1279,8 +1331,22 @@ function admSet(b){
      <label class="field"><span>${t("newPass")}</span><input class="input" name="p1" type="password" required></label>
      <label class="field"><span>${t("confPass")}</span><input class="input" name="p2" type="password" required></label>
      <button class="btn sm">${t("change")}</button></form>
+   <form class="card" id="stF"><h3>${t("setStats")}</h3><p class="muted" style="font-size:.9rem">${t("setStatsD")}</p>
+     <label class="field"><span>${t("setStudents")}</span><input class="input" type="number" min="0" name="students" value="${esc(A.settings.students||"")}"></label>
+     <label class="field"><span>${t("setYears")}</span><input class="input" type="number" min="0" name="years" value="${esc(A.settings.years||"")}"></label>
+     <button class="btn sm">${t("save")}</button></form>
+   <div class="card"><h3>${t("testiAdm")}</h3><p class="muted" style="font-size:.9rem">${t("testiAdmD")}</p>
+     <form id="tsF"><div class="form-grid"><label class="field"><span>${t("tName")}</span><input class="input" name="name" required dir="auto"></label>
+       <label class="field"><span>${t("tStars")}</span><select class="input" name="stars">${[5,4,3].map(n=>`<option value="${n}">${"★".repeat(n)}</option>`).join("")}</select></label></div>
+       <label class="field"><span>${t("tRole")}</span><input class="input" name="role" dir="auto"></label>
+       <label class="field"><span>${t("tText")}</span><textarea class="input" name="text" rows="3" required dir="auto"></textarea></label>
+       <button class="btn sm">${t("add")}</button></form><hr style="border-color:var(--line)">
+     ${(A.testimonials||[]).map((x,k)=>`<div class="list-item"><div class="t"><b>${esc(x.name)}</b> <small>${"★".repeat(+x.stars||5)}</small><br><small>${esc(x.text).slice(0,90)}</small></div><button class="btn sm red" data-tdel="${k}">${t("del")}</button></div>`).join("")||`<p class="muted">${t("noTesti")}</p>`}</div>
    <div class="card"><h3>${t("allCodes")}</h3><p class="muted" style="font-size:.9rem">${t("allCodesD")}</p>
      ${A.groups.map(g=>`<div class="list-item"><div class="t">${esc(gName(g.id))}</div><b dir="ltr" style="color:var(--gold);letter-spacing:2px">${esc(g.code)}</b></div>`).join("")}</div></div>`;
+  $("#stF").onsubmit = e => { e.preventDefault(); const o = fd(e.target); A.settings.students = o.students ? Math.max(0, parseInt(o.students,10)||0) : ""; A.settings.years = o.years ? Math.max(0, parseInt(o.years,10)||0) : ""; markDirty(); toast(t("saved")); };
+  $("#tsF").onsubmit = e => { e.preventDefault(); const o = fd(e.target); A.testimonials = A.testimonials||[]; A.testimonials.push({name:o.name, role:o.role, text:o.text, stars:+o.stars||5}); markDirty(); toast(t("added")); admSet(b); };
+  b.querySelectorAll("[data-tdel]").forEach(x => x.onclick = () => armed(x, () => { A.testimonials.splice(+x.dataset.tdel,1); markDirty(); admSet(b); }));
   $("#setF").onsubmit = e => { e.preventDefault(); A.settings.whatsapp = fd(e.target).whatsapp.replace(/\D/g,""); markDirty(); toast(t("saved")); };
   $("#pwF").onsubmit = e => { e.preventDefault(); const o = fd(e.target); if(o.p1.length<6) return toast(t("passShort")); if(o.p1!==o.p2) return toast(t("passDiff")); A.pass = o.p1; markDirty(); toast(t("passLater")); e.target.reset(); };
 }
@@ -1288,7 +1354,7 @@ function admSet(b){
 async function buildData(){
   const groups = [], codes = {};
   for(const g of A.groups){ codes[g.id] = g.code; groups.push({id:g.id, blob: await encryptJSON(g.content, g.code)}); }
-  return {version:3, updated:new Date().toISOString(), settings:A.settings, announcements:A.announcements, groups, admin: await encryptJSON({codes}, A.pass)};
+  return {version:3, updated:new Date().toISOString(), settings:A.settings, announcements:A.announcements, testimonials:A.testimonials||[], groups, admin: await encryptJSON({codes}, A.pass)};
 }
 const dataToJs = d => `/* Soroban for All — data file, generated from the teacher space. Each group's content is encrypted with its secret code. */\nwindow.SFA_DATA = ${JSON.stringify(d,null,1)};\n`;
 function admPub(b){
