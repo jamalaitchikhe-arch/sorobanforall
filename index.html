@@ -504,6 +504,12 @@ nav a.navj.on{color:#1a1200}
 .j3card.show{opacity:1;pointer-events:auto;transform:translateX(-50%)}
 .j3ct{display:flex;flex-direction:column}.j3st{color:var(--gold);letter-spacing:2px}
 @media(max-width:600px){.j3d{height:calc(100vh - 120px);border-radius:16px}.j3who{min-width:0}.j3pill{padding:3px 8px;font-size:.85rem}.j3btns{width:100%;justify-content:center;margin:0}.j3beta{top:auto;bottom:150px}.j3name{min-width:150px;font-size:.95rem}.j3hint{display:none}}
+
+/* ===== أزرار الصوت ===== */
+.sndbtns{display:inline-flex;gap:6px}
+.sndbtns button{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:var(--text);border-radius:12px;min-width:40px;height:38px;cursor:pointer;font-size:1.05rem}
+.sndbtns button.off{opacity:.5;border-style:dashed}
+.phead .sndbtns button{height:34px;min-width:36px}
 </style>
 </head>
 <body>
@@ -537,6 +543,7 @@ nav a.navj.on{color:#1a1200}
 <div class="toast" id="toast"></div>
 
 <script src="workbook.js"></script>
+<script src="music.js"></script>
 <script src="journey.js"></script>
 <script src="data.js"></script>
 <script>
@@ -751,6 +758,7 @@ window.addEventListener("hashchange", () => route());
 function route(keepScroll){
   stopGames();
   if(window.SFA3D_cleanup){ try{ window.SFA3D_cleanup(); }catch(e){} }
+  if(window.SFAMusic && !/^#?journey/.test(decodeURIComponent(location.hash.slice(1)||"home"))) SFAMusic.stop();
   const h = decodeURIComponent(location.hash.slice(1) || "home");
   const [p, a, b] = h.split("/");
   if(!keepScroll) window.scrollTo({top:0});
@@ -758,7 +766,7 @@ function route(keepScroll){
   if(p==="groups"){ setNav(p); return viewGroups(); }
   if(p==="group"){ setNav("groups"); return viewGroup(a, b||"rec"); }
   if(p==="journey2d"){ setNav("journey"); return window.viewJourney ? viewJourney() : null; }
-  if(p==="journey" || p==="journey3d"){ setNav("journey"); return import("./journey3d.js?v=3").then(m => m.view()).catch(err => { console.error(err); window.viewJourney && viewJourney(); }); }
+  if(p==="journey" || p==="journey3d"){ setNav("journey"); return import("./journey3d.js?v=4").then(m => m.view()).catch(err => { console.error(err); window.viewJourney && viewJourney(); }); }
   if(p==="admin"){ setNav(""); return viewAdmin(); }
   setNav("home"); viewHome();
 }
@@ -905,6 +913,7 @@ const WELCOME = {
          ["{n} est arrivée !","La championne du calcul mental est prête pour le défi 🏆"]] }
 };
 function playChime(){
+  if(window.SFAMusic){ if(!SFAMusic.sfxOn) return; SFAMusic.duck(); }
   try{ const A = new (window.AudioContext||window.webkitAudioContext)(); const now = A.currentTime;
     [523.25,659.25,783.99,1046.5].forEach((f,i)=>{ const o=A.createOscillator(), g=A.createGain(); o.type="triangle"; o.frequency.value=f;
       g.gain.setValueAtTime(0.0001,now+i*0.11); g.gain.exponentialRampToValueAtTime(0.18,now+i*0.11+0.02); g.gain.exponentialRampToValueAtTime(0.0001,now+i*0.11+0.5);

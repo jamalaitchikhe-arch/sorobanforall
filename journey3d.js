@@ -107,6 +107,7 @@ function makeIsland(theme, R){
 function render(focus){
   const J = window.SFAJ, S = J.S, app = document.getElementById("app");
   cleanup(); J.stopTimer && J.stopTimer();
+  if(window.SFAMusic) SFAMusic.scene("map");
   app.innerHTML = `<div class="j3d" id="j3d"><div class="j3load">${t3("loading")}</div></div>`;
   const host = document.getElementById("j3d");
   let renderer;
@@ -247,6 +248,7 @@ function render(focus){
       <div class="j3who"><b dir="auto">${esc(S.name)}</b><small>${rk.ico} ${esc(J.rankName(rk))}</small></div>
       <span class="j3pill">🟡 ${S.coins}</span><span class="j3pill">⭐ ${J.totalStars()}</span>
       <div class="j3btns"><button data-open="shop" title="${esc(J.jt("shop"))}">🛍️</button><button data-open="badges" title="${esc(J.jt("badges"))}">🏅</button><button data-open="save" title="${esc(J.jt("save"))}">💾</button><button data-open="fb" title="${esc(J.jt("rateBtn"))}">⭐</button>
+      ${window.SFAMusic ? SFAMusic.buttons() : ""}
       <button class="j3mode ${S.mode==="train"?"train":""}" id="j3mode">${esc(S.mode==="train"?J.jt("modeTrain"):J.jt("modeComp"))}</button></div>
     </div>
     <div class="j3beta"><a href="#journey2d">${t3("map2d")}</a></div>

@@ -125,6 +125,7 @@ const totalStars = () => Object.values(S.stars).reduce((a,b)=>a+b,0);
 
 /* ---------------- أصوات صغيرة ---------------- */
 function beep(kind){
+  if(window.SFAMusic){ if(!SFAMusic.sfxOn) return; if(kind!=="tick") SFAMusic.duck(); }
   try{ const A = new (window.AudioContext||window.webkitAudioContext)(), n = A.currentTime;
     if(kind==="tick"){ const o=A.createOscillator(), g=A.createGain(); o.type="square"; o.frequency.value=1200; g.gain.setValueAtTime(0.05,n); g.gain.exponentialRampToValueAtTime(0.0001,n+0.06); o.connect(g).connect(A.destination); o.start(n); o.stop(n+0.07); setTimeout(()=>{ try{A.close();}catch(e){} }, 300); return; }
     const seq = kind==="ok" ? [[880,0],[1318.5,0.08]] : kind==="bad" ? [[196,0],[155.6,0.12]] : [[523.25,0],[659.25,.1],[783.99,.2],[1046.5,.3],[1318.5,.42]];
@@ -148,6 +149,7 @@ window.viewJourney = function(){
 };
 
 function viewCreate(){
+  if(window.SFAMusic) SFAMusic.scene("map");
   let gen = "", av = "🦁";
   app.innerHTML = `<div class="jfree">${jt("free")}</div>
   <div class="card lockbox login" style="max-width:520px">
@@ -192,6 +194,7 @@ function playerCard(){
     <button class="btn sm ghost" data-open="badges">${jt("badges")} <b>${S.badges.length}/${BADGES.length}</b></button>
     <button class="btn sm ghost" data-open="save">${jt("save")}</button>
     <button class="btn sm ghost" data-open="fb">${jt("rateBtn")}</button>
+    ${window.SFAMusic ? SFAMusic.buttons() : ""}
   </div>`;
 }
 function isYesterday(d){ if(!d) return false; const x = new Date(d+"T12:00:00"); x.setDate(x.getDate()+1); const y = x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0"); return y===today(); }
@@ -199,6 +202,7 @@ function isYesterday(d){ if(!d) return false; const x = new Date(d+"T12:00:00");
 let mapFn = null;
 function renderMap(scrollTo){
   stopTimer();
+  if(window.SFAMusic) SFAMusic.scene("map");
   if(mapFn) return mapFn(scrollTo);
   const all = ALL(); const firstOpen = all.find(s => isUnlocked(s.key) && !starsOf(s.key));
   const worlds = WORLDS.map(w => {
@@ -268,13 +272,14 @@ function play(key){
   const bIco = st.type==="final" ? FINAL.ico : st.type==="super" ? "💀" : w.bIco;
   const bName = st.type==="final" ? (LANG==="fr"?FINAL.fr:FINAL.ar) : w ? (LANG==="fr"?w.bFr:w.bAr) : "";
   let i = 0, ok = 0, secs = 0, speed = 0, misses = 0, busy = false, current = null;
+  if(window.SFAMusic){ SFAMusic.focus(false); SFAMusic.scene(isBoss ? "boss" : "stage"); }
   const total = st.items.length;
   window.scrollTo({top:0});
   app.innerHTML = `<div class="playwrap" style="--c1:${w?w.c1:"#f5c542"};--c2:${w?w.c2:"#f7931e"}">
     <div class="phead"><button class="btn sm ghost" id="pBack">${jt("back")}</button>
       <div class="ptitle">${w?w.ico+" "+esc(wName(w))+" · ":""}${st.type==="stage"?jt("stage")+" "+st.n:st.type==="final"?jt("finalT"):(st.type==="boss"?jt("boss"):jt("superBoss"))}
         <span class="mtag ${comp?"comp":"train"}">${comp?jt("compTag"):jt("trainTag")}</span></div>
-      <span class="score-pill">${jt("time")} <b id="pT">0:00</b></span></div>
+      ${window.SFAMusic ? SFAMusic.buttons() : ""}<span class="score-pill">${jt("time")} <b id="pT">0:00</b></span></div>
     ${comp?`<div class="noleave">${jt("noLeave")}</div>`:""}
     ${isBoss?`<div class="bossbox"><div class="bossico" id="bIco">${bIco}</div><div class="bossinfo"><b>${esc(bName)}</b><div class="hpbar"><i id="hp" style="width:100%"></i></div><small>${jt("hp")}</small></div></div>`:""}
     <div class="dots">${st.items.map((_,k)=>`<i id="d${k}" class="${k===0?"cur":""}"></i>`).join("")}</div>
@@ -310,7 +315,7 @@ function play(key){
       <form id="qF" ${flashMode?'style="display:none"':""}>${flashMode?`<div class="fask">${jt("flashAsk")}</div>`:""}<input class="input ans" id="qA" inputmode="numeric" autocomplete="off" placeholder="?"><button class="btn">${jt("check")}</button></form>`;
     let elapsed = () => 0, limit = 0;
     const resolve = (v, reason) => {
-      if(busy) return; busy = true; current = null; clearQ();
+      if(busy) return; busy = true; current = null; clearQ(); if(flashMode && window.SFAMusic) SFAMusic.focus(false);
       const right = !reason && Number(v)===ans;
       const fast = right && comp && elapsed() < limit/2;
       const dot = $("#d"+i); if(dot) dot.className = right?"ok":"bad";
@@ -339,6 +344,7 @@ function play(key){
           qTimers.push(setTimeout(next, FLASH_T(digitsOf(x)))); }, 140));
       };
       const tb = $("#tb"); if(tb) tb.style.width = "100%";
+      if(window.SFAMusic) SFAMusic.focus(true);
       qTimers.push(setTimeout(next, 900));
     } else {
       $("#qA").focus(); limit = qTime(it); elapsed = countdown(limit, () => resolve(null, "timeout"));
@@ -347,7 +353,9 @@ function play(key){
 
   function finish(){
     stopTimer();
+    if(window.SFAMusic) SFAMusic.focus(false);
     if(!comp){
+      if(window.SFAMusic) SFAMusic.scene(null);
       const xp = ok*5; S.xp += xp; S.correct += ok;
       const newB = []; if(S.correct>=100 && !S.badges.includes("hundred")){ S.badges.push("hundred"); newB.push(BADGES.find(b=>b.id==="hundred")); }
       save(); window.scrollTo({top:0});
@@ -410,6 +418,7 @@ function play(key){
     $("#rRetry").onclick = () => play(st.key);
     $("#rMap").onclick = () => renderMap(w?"world"+w.id:null);
     const rn = $("#rNext"); if(rn) rn.onclick = () => play(nxt.key);
+    if(window.SFAMusic){ if(passed) SFAMusic.victory(); else SFAMusic.scene(null); }
     if(passed){ beep("win"); const cv = document.createElement("canvas"); cv.className = "jconf"; document.body.appendChild(cv);
       try{ const stop = confettiBurst(cv); setTimeout(()=>{ stop(); cv.remove(); }, 4300); }catch(e){ cv.remove(); } }
     if(st.type==="final" && passed) setTimeout(()=>bigCelebration(jt("victoryT"), jt("victoryD"), "🏆", ()=>openCert("final")), 900);
