@@ -757,8 +757,8 @@ function route(keepScroll){
   if(p==="announcements"){ setNav(p); return viewAnn(); }
   if(p==="groups"){ setNav(p); return viewGroups(); }
   if(p==="group"){ setNav("groups"); return viewGroup(a, b||"rec"); }
-  if(p==="journey"){ setNav(p); return window.viewJourney ? viewJourney() : null; }
-  if(p==="journey3d"){ setNav("journey"); return import("./journey3d.js?v=2").then(m => m.view()).catch(err => { console.error(err); window.viewJourney && viewJourney(); }); }
+  if(p==="journey2d"){ setNav("journey"); return window.viewJourney ? viewJourney() : null; }
+  if(p==="journey" || p==="journey3d"){ setNav("journey"); return import("./journey3d.js?v=3").then(m => m.view()).catch(err => { console.error(err); window.viewJourney && viewJourney(); }); }
   if(p==="admin"){ setNav(""); return viewAdmin(); }
   setNav("home"); viewHome();
 }

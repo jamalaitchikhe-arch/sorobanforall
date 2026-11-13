@@ -29,7 +29,7 @@ ar:{
  modeComp:"🏆 وضع المسابقة", modeCompD:"عدّاد تنازلي وأرقام وامضة · نجوم وفتح المراحل", modeTrain:"🎓 وضع التدريب", modeTrainD:"بلا عدّاد للتعلّم براحة · خبرة فقط",
  compTag:"🏆 مسابقة", trainTag:"🎓 تدريب", noLeave:"⚠️ لا تغادر الصفحة أثناء التمرين، وإلا لن يُحتسب", timeout:"⏰ انتهى الوقت!", left:"🚫 غادرت الصفحة — لا يُحتسب.",
  speed:"⚡ +5 سرعة", speedN:"{n} إجابات سريعة", flashReady:"استعد… ركّز جيداً 👀", flashAsk:"كم المجموع؟", trainRes:"🎓 انتهى التدريب", trainNote:"النجوم وفتح المراحل تُكسب في وضع المسابقة 🏆", tryComp:"🏆 جرّب في وضع المسابقة",
- rateBtn:"⭐ قيّم المسابقة", stars:"نجوم", mapT:"🗺️ خريطة العوالم", exN:"تمرين", of:"من"
+ rateBtn:"⭐ قيّم المسابقة", go3d:"🌍 العالم ثلاثي الأبعاد", stars:"نجوم", mapT:"🗺️ خريطة العوالم", exN:"تمرين", of:"من"
 },
 fr:{
  free:"🎁 Gratuit", title:"L'aventure des champions", sub:"De la première perle au cerveau génial",
@@ -53,7 +53,7 @@ fr:{
  modeComp:"🏆 Mode concours", modeCompD:"Compte à rebours et nombres éclair · étoiles et nouvelles étapes", modeTrain:"🎓 Mode entraînement", modeTrainD:"Sans chrono pour apprendre tranquillement · XP seulement",
  compTag:"🏆 Concours", trainTag:"🎓 Entraînement", noLeave:"⚠️ Ne quitte pas la page pendant l'exercice, sinon il ne compte pas", timeout:"⏰ Temps écoulé !", left:"🚫 Tu as quitté la page — non compté.",
  speed:"⚡ +5 rapidité", speedN:"{n} réponses rapides", flashReady:"Prêt… concentre-toi 👀", flashAsk:"Quelle est la somme ?", trainRes:"🎓 Entraînement terminé", trainNote:"Les étoiles et les nouvelles étapes se gagnent en mode concours 🏆", tryComp:"🏆 Essayer en mode concours",
- rateBtn:"⭐ Donne ton avis", stars:"étoiles", mapT:"🗺️ Carte des mondes", exN:"Exercice", of:"sur"
+ rateBtn:"⭐ Donne ton avis", go3d:"🌍 Le monde en 3D", stars:"étoiles", mapT:"🗺️ Carte des mondes", exN:"Exercice", of:"sur"
 }};
 const jt = k => { const L = (typeof LANG!=="undefined" && JT[LANG]) ? JT[LANG] : JT.ar; return L[k] ?? JT.ar[k] ?? k; };
 const fill = (s, o) => String(s).replace(/\{(\w+)\}/g, (_,k)=> o[k] ?? "");
@@ -222,7 +222,7 @@ function renderMap(scrollTo){
   }).join("");
   const fOpen = allCleared();
   app.innerHTML = `<div class="jfree">${jt("free")}</div>
-    <div class="jhead"><h1>🏆 ${jt("title")}</h1><p class="muted">${jt("sub")}</p></div>
+    <div class="jhead"><h1>🏆 ${jt("title")}</h1><p class="muted">${jt("sub")}</p><a class="btn sm" href="#journey" style="margin-top:6px">${jt("go3d")}</a></div>
     ${playerCard()}
     <h2 class="maph">${jt("mapT")}</h2>
     <div class="worlds">${worlds}
@@ -580,7 +580,7 @@ function askFeedback(force){
   };
 }
 // الظهور عند مغادرة صفحة المسابقة (التنقل داخل الموقع)
-const inJ = h => h==="#journey" || h==="#journey3d";
+const inJ = h => h==="#journey" || h==="#journey3d" || h==="#journey2d";
 let lastHash = location.hash;
 window.addEventListener("hashchange", () => { const was = lastHash; lastHash = location.hash; if(inJ(was) && !inJ(location.hash)) setTimeout(askFeedback, 600); });
 // الظهور عند محاولة الخروج بالفأرة نحو أعلى النافذة (الحاسوب)

@@ -110,6 +110,8 @@ function render(focus){
   app.innerHTML = `<div class="j3d" id="j3d"><div class="j3load">${t3("loading")}</div></div>`;
   const host = document.getElementById("j3d");
   let renderer;
+  const hasGL = (() => { try{ const c = document.createElement("canvas"); return !!(c.getContext("webgl2") || c.getContext("webgl")); }catch(e){ return false; } })();
+  if(!hasGL){ J.setMapRenderer(null); J.renderMap(); return; }
   try{ renderer = new THREE.WebGLRenderer({antialias: (window.devicePixelRatio||1) < 2, alpha:false, powerPreference:"high-performance"}); }
   catch(e){ J.setMapRenderer(null); J.renderMap(); return; }
   const dpr = Math.min(window.devicePixelRatio||1, 1.75);
@@ -247,7 +249,7 @@ function render(focus){
       <div class="j3btns"><button data-open="shop" title="${esc(J.jt("shop"))}">🛍️</button><button data-open="badges" title="${esc(J.jt("badges"))}">🏅</button><button data-open="save" title="${esc(J.jt("save"))}">💾</button><button data-open="fb" title="${esc(J.jt("rateBtn"))}">⭐</button>
       <button class="j3mode ${S.mode==="train"?"train":""}" id="j3mode">${esc(S.mode==="train"?J.jt("modeTrain"):J.jt("modeComp"))}</button></div>
     </div>
-    <div class="j3beta">${t3("beta")} · <a href="#journey">${t3("map2d")}</a></div>
+    <div class="j3beta"><a href="#journey2d">${t3("map2d")}</a></div>
     <div class="j3hint">${t3("hint")}</div>
     <div class="j3card" id="j3card"></div>
     <div class="j3nav"><button class="j3arrow" id="j3prev" aria-label="${t3("prev")}">‹</button><div class="j3name" id="j3name"></div><button class="j3arrow" id="j3next" aria-label="${t3("next")}">›</button></div>`;
