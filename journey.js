@@ -141,7 +141,7 @@ function stopTimer(){ if(timer){ clearInterval(timer); timer = null; } clearQ();
 window.addEventListener("hashchange", stopTimer);
 
 window.viewJourney = function(){
-  stopTimer(); S = load();
+  mapFn = null; stopTimer(); S = load();
   if(!window.SFA_WB){ app.innerHTML = `<div class="empty">⚠️ workbook.js</div>`; return; }
   if(!S.name) return viewCreate();
   renderMap();
@@ -196,8 +196,10 @@ function playerCard(){
 }
 function isYesterday(d){ if(!d) return false; const x = new Date(d+"T12:00:00"); x.setDate(x.getDate()+1); const y = x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0"); return y===today(); }
 
+let mapFn = null;
 function renderMap(scrollTo){
   stopTimer();
+  if(mapFn) return mapFn(scrollTo);
   const all = ALL(); const firstOpen = all.find(s => isUnlocked(s.key) && !starsOf(s.key));
   const worlds = WORLDS.map(w => {
     const st = stagesOf(w.id), got = st.reduce((a,s)=>a+starsOf(s.key),0), max = st.length*3, cleared = worldCleared(w.id), open = isUnlocked(st[0].key);
@@ -498,6 +500,14 @@ function openCert(which){
     <div class="row" style="justify-content:center;margin-top:12px"><button class="btn" id="cPrint">${jt("print")}</button></div>`, "certmodal");
   M.el.querySelector("#cPrint").onclick = () => { document.body.classList.add("printing-cert"); try{ window.print(); }catch(e){ toast(jt("noPrint")); } setTimeout(()=>document.body.classList.remove("printing-cert"), 800); };
 }
+/* واجهة للخريطة ثلاثية الأبعاد (journey3d.js) */
+window.SFAJ = {
+  load(){ S = load(); return S; }, get S(){ return S; }, save, jt, WORLDS, FINAL, GENIUS, RANKS, rankOf, curRank, rankName, wName,
+  stagesOf, ALL, starsOf, isUnlocked, worldCleared, allCleared, totalStars, play, renderMap, viewCreate, playerCard,
+  openShop, openBadges, openSave, openCert, today, isYesterday, stopTimer,
+  setMapRenderer(fn){ mapFn = fn; }
+};
+
 /* ---------------- نافذة التقييم عند مغادرة المسابقة ---------------- */
 const FBT = {
  ar:{ title:"كيف كانت مغامرتك يا {n}؟", sub:"رأيك يساعدنا نجعل رحلة الأبطال أروع! 💛", faces:["مملّة","عادية","جيدة","ممتعة","رائعة جداً"],
@@ -564,17 +574,18 @@ function askFeedback(force){
     store.set(KEY, cur); if(S) S = cur;
     setTimeout(()=>{
       m.querySelector(".fbbox").innerHTML = `<div class="fbdone"><div class="fbbig">🎉</div><h2>${ft(cur.gen==="f"?"thanksF":"thanks")}</h2>${first?`<p class="fbcoins">${ft("thanksD")}</p>`:""}<button class="btn" id="fbOk">OK</button></div>`;
-      m.querySelector("#fbOk").onclick = () => { close(); if(location.hash==="#journey" && S) renderMap(); };
+      m.querySelector("#fbOk").onclick = () => { close(); if(inJ(location.hash) && S) renderMap(); };
       try{ playChime(); }catch(e){}
     }, 300);
   };
 }
 // الظهور عند مغادرة صفحة المسابقة (التنقل داخل الموقع)
+const inJ = h => h==="#journey" || h==="#journey3d";
 let lastHash = location.hash;
-window.addEventListener("hashchange", () => { const was = lastHash; lastHash = location.hash; if(was==="#journey" && location.hash!=="#journey") setTimeout(askFeedback, 600); });
+window.addEventListener("hashchange", () => { const was = lastHash; lastHash = location.hash; if(inJ(was) && !inJ(location.hash)) setTimeout(askFeedback, 600); });
 // الظهور عند محاولة الخروج بالفأرة نحو أعلى النافذة (الحاسوب)
-document.addEventListener("mouseout", e => { if(location.hash==="#journey" && !e.relatedTarget && e.clientY <= 0 && !document.querySelector(".playwrap")) askFeedback(); });
+document.addEventListener("mouseout", e => { if(inJ(location.hash) && !e.relatedTarget && e.clientY <= 0 && !document.querySelector(".playwrap")) askFeedback(); });
 // الظهور عند العودة للصفحة بعد إخفائها (الهاتف: الخروج من التطبيق ثم الرجوع)
-document.addEventListener("visibilitychange", () => { if(!document.hidden && location.hash==="#journey" && !document.querySelector(".playwrap")) setTimeout(askFeedback, 400); });
+document.addEventListener("visibilitychange", () => { if(!document.hidden && inJ(location.hash) && !document.querySelector(".playwrap")) setTimeout(askFeedback, 400); });
 window.sfaAskFeedback = () => askFeedback(true);
 })();
