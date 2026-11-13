@@ -26,6 +26,9 @@ ar:{
  certT:"شهادة تقدير", certTo:"تُمنح هذه الشهادة إلى", certWorld:"تقديراً لتحرير «{w}» في رحلة الأبطال للحساب الذهني بالسوروبان", certFinal:"تقديراً لفوزه بالكأس الذهبية ولقب «العقل العبقري» في رحلة الأبطال للحساب الذهني بالسوروبان", certFinalF:"تقديراً لفوزها بالكأس الذهبية ولقب «العقل العبقري» في رحلة الأبطال للحساب الذهني بالسوروبان",
  certDate:"بتاريخ", print:"🖨️ طباعة / حفظ PDF", noPrint:"الطباعة غير متاحة هنا", heroM:"البطل", heroF:"البطلة",
  victoryT:"مبروك يا {n}!", victoryD:"لقد هزمت إمبراطور الأرقام وفزت بالكأس الذهبية 🏆 أنت الآن: العقل العبقري 🧠", worldClearT:"تحرّر العالم!", worldClearD:"حرّرت «{w}» 🎉 شهادتك جاهزة.",
+ modeComp:"🏆 وضع المسابقة", modeCompD:"عدّاد تنازلي وأرقام وامضة · نجوم وفتح المراحل", modeTrain:"🎓 وضع التدريب", modeTrainD:"بلا عدّاد للتعلّم براحة · خبرة فقط",
+ compTag:"🏆 مسابقة", trainTag:"🎓 تدريب", noLeave:"⚠️ لا تغادر الصفحة أثناء التمرين، وإلا لن يُحتسب", timeout:"⏰ انتهى الوقت!", left:"🚫 غادرت الصفحة — لا يُحتسب.",
+ speed:"⚡ +5 سرعة", speedN:"{n} إجابات سريعة", flashReady:"استعد… ركّز جيداً 👀", flashAsk:"كم المجموع؟", trainRes:"🎓 انتهى التدريب", trainNote:"النجوم وفتح المراحل تُكسب في وضع المسابقة 🏆", tryComp:"🏆 جرّب في وضع المسابقة",
  stars:"نجوم", mapT:"🗺️ خريطة العوالم", exN:"تمرين", of:"من"
 },
 fr:{
@@ -47,6 +50,9 @@ fr:{
  certT:"Diplôme d'honneur", certTo:"Ce diplôme est décerné à", certWorld:"pour avoir libéré « {w} » dans l'aventure des champions du calcul mental au soroban", certFinal:"pour avoir remporté la coupe d'or et le titre de « Cerveau génial » dans l'aventure des champions du calcul mental au soroban", certFinalF:"pour avoir remporté la coupe d'or et le titre de « Cerveau génial » dans l'aventure des champions du calcul mental au soroban",
  certDate:"Le", print:"🖨️ Imprimer / PDF", noPrint:"Impression indisponible ici", heroM:"le champion", heroF:"la championne",
  victoryT:"Bravo {n} !", victoryD:"Tu as vaincu l'Empereur des nombres et gagné la coupe d'or 🏆 Tu es désormais : le Cerveau génial 🧠", worldClearT:"Monde libéré !", worldClearD:"Tu as libéré « {w} » 🎉 Ton diplôme est prêt.",
+ modeComp:"🏆 Mode concours", modeCompD:"Compte à rebours et nombres éclair · étoiles et nouvelles étapes", modeTrain:"🎓 Mode entraînement", modeTrainD:"Sans chrono pour apprendre tranquillement · XP seulement",
+ compTag:"🏆 Concours", trainTag:"🎓 Entraînement", noLeave:"⚠️ Ne quitte pas la page pendant l'exercice, sinon il ne compte pas", timeout:"⏰ Temps écoulé !", left:"🚫 Tu as quitté la page — non compté.",
+ speed:"⚡ +5 rapidité", speedN:"{n} réponses rapides", flashReady:"Prêt… concentre-toi 👀", flashAsk:"Quelle est la somme ?", trainRes:"🎓 Entraînement terminé", trainNote:"Les étoiles et les nouvelles étapes se gagnent en mode concours 🏆", tryComp:"🏆 Essayer en mode concours",
  stars:"étoiles", mapT:"🗺️ Carte des mondes", exN:"Exercice", of:"sur"
 }};
 const jt = k => { const L = (typeof LANG!=="undefined" && JT[LANG]) ? JT[LANG] : JT.ar; return L[k] ?? JT.ar[k] ?? k; };
@@ -91,7 +97,7 @@ const AVATARS = [
 /* ---------------- الحالة (على جهاز الطفل) ---------------- */
 const KEY = "journey";
 const fresh = () => ({v:1, name:"", gen:"", avatar:"🦁", owned:["🦁","🐯","🐼","🐰"], xp:0, coins:0, stars:{}, best:{}, badges:[], correct:0,
-  streak:{last:"", n:0}, daily:{date:"", wins:0, done:false}, finalWon:false, created:new Date().toISOString().slice(0,10)});
+  streak:{last:"", n:0}, daily:{date:"", wins:0, done:false}, finalWon:false, mode:"comp", created:new Date().toISOString().slice(0,10)});
 let S = null; // يُحمَّل عند فتح الصفحة
 function load(){ const s = store.get(KEY, null); if(!s || typeof s!=="object") return fresh(); return Object.assign(fresh(), s); }
 function save(){ store.set(KEY, S); }
@@ -120,6 +126,7 @@ const totalStars = () => Object.values(S.stars).reduce((a,b)=>a+b,0);
 /* ---------------- أصوات صغيرة ---------------- */
 function beep(kind){
   try{ const A = new (window.AudioContext||window.webkitAudioContext)(), n = A.currentTime;
+    if(kind==="tick"){ const o=A.createOscillator(), g=A.createGain(); o.type="square"; o.frequency.value=1200; g.gain.setValueAtTime(0.05,n); g.gain.exponentialRampToValueAtTime(0.0001,n+0.06); o.connect(g).connect(A.destination); o.start(n); o.stop(n+0.07); setTimeout(()=>{ try{A.close();}catch(e){} }, 300); return; }
     const seq = kind==="ok" ? [[880,0],[1318.5,0.08]] : kind==="bad" ? [[196,0],[155.6,0.12]] : [[523.25,0],[659.25,.1],[783.99,.2],[1046.5,.3],[1318.5,.42]];
     seq.forEach(([f,d])=>{ const o=A.createOscillator(), g=A.createGain(); o.type = kind==="bad"?"sawtooth":"triangle"; o.frequency.value=f;
       g.gain.setValueAtTime(0.0001,n+d); g.gain.exponentialRampToValueAtTime(kind==="bad"?0.08:0.16,n+d+0.02); g.gain.exponentialRampToValueAtTime(0.0001,n+d+0.3);
@@ -130,7 +137,7 @@ function beep(kind){
 
 /* ---------------- الصفحة الرئيسية للرحلة ---------------- */
 let timer = null;
-function stopTimer(){ if(timer){ clearInterval(timer); timer = null; } }
+function stopTimer(){ if(timer){ clearInterval(timer); timer = null; } clearQ(); unbindLeave(); }
 window.addEventListener("hashchange", stopTimer);
 
 window.viewJourney = function(){
@@ -178,6 +185,7 @@ function playerCard(){
       <span title="${jt("streak")}">🔥 <b>${S.streak.last===today()||isYesterday(S.streak.last)?S.streak.n:0}</b></span>
     </div>
   </div>
+  <div class="modesw"><button class="${S.mode!=="train"?"on":""}" data-mode="comp"><b>${jt("modeComp")}</b><small>${jt("modeCompD")}</small></button><button class="${S.mode==="train"?"on":""}" data-mode="train"><b>${jt("modeTrain")}</b><small>${jt("modeTrainD")}</small></button></div>
   <div class="pbar">
     <div class="daily ${dl.done?"done":""}">${dl.done?jt("dailyDone"):`${jt("daily")}: ${jt("dailyD")} <b>(${Math.min(dl.wins,2)}/2)</b>`}</div>
     <button class="btn sm ghost" data-open="shop">${jt("shop")}</button>
@@ -223,6 +231,7 @@ function renderMap(scrollTo){
       </section>
     </div>`;
   app.querySelectorAll("[data-play]").forEach(b => b.onclick = () => play(b.dataset.play));
+  app.querySelectorAll("[data-mode]").forEach(b => b.onclick = () => { S.mode = b.dataset.mode; save(); renderMap(); });
   app.querySelectorAll("[data-open]").forEach(b => b.onclick = () => ({shop:openShop, badges:openBadges, save:openSave})[b.dataset.open]());
   app.querySelectorAll("[data-cert]").forEach(b => b.onclick = () => openCert(b.dataset.cert));
   const target = scrollTo ? document.getElementById(scrollTo) : (firstOpen ? document.getElementById("world"+firstOpen.w) : null);
@@ -236,20 +245,34 @@ function finalStage(){
   WORLDS.forEach(w => { const L = SFA_WB.lessons.find(l=>l.id===w.id); if(!L) return; pool.push(...shuffle(L.c7||[]).slice(0,1), ...shuffle(L.ex.slice(20)).slice(0,1)); });
   return {key:"final", type:"final", w:0, items:shuffle(pool).slice(0,12), pass:10, s2:11, s3:12};
 }
+/* ---------------- أوقات وضع المسابقة ---------------- */
+const digitsOf = x => String(Math.abs(x)).length;
+const ROW_T = d => d<=1 ? 1250 : d===2 ? 2000 : 3000;          // وقت كل سطر في التمارين المكتوبة
+const qTime = it => 2000 + it.reduce((a,x)=>a+ROW_T(digitsOf(x)),0);
+const FLASH_T = d => d<=1 ? 850 : d===2 ? 1150 : 1500;           // مدة ظهور كل عدد وامض
+const ANS_T = it => Math.max(...it.map(digitsOf))<=1 ? 6000 : 8000; // وقت كتابة الجواب بعد الوميض
+let qTimers = [], leaveHandler = null;
+function clearQ(){ qTimers.forEach(x=>{ clearTimeout(x); clearInterval(x); }); qTimers = []; }
+function unbindLeave(){ if(leaveHandler){ document.removeEventListener("visibilitychange", leaveHandler); window.removeEventListener("blur", leaveHandler); leaveHandler = null; } }
+
 function play(key){
   const st = key==="final" ? finalStage() : ALL().find(s=>s.key===key);
   if(!st || (key!=="final" && !isUnlocked(key))) return;
   const w = WORLDS.find(x=>x.id===st.w);
   const isBoss = st.type!=="stage";
+  const comp = st.type==="final" || S.mode!=="train";
+  const flashMode = comp && isBoss;
   const bIco = st.type==="final" ? FINAL.ico : st.type==="super" ? "💀" : w.bIco;
   const bName = st.type==="final" ? (LANG==="fr"?FINAL.fr:FINAL.ar) : w ? (LANG==="fr"?w.bFr:w.bAr) : "";
-  let i = 0, ok = 0, secs = 0, res = [], busy = false;
+  let i = 0, ok = 0, secs = 0, speed = 0, misses = 0, busy = false, current = null;
   const total = st.items.length;
   window.scrollTo({top:0});
   app.innerHTML = `<div class="playwrap" style="--c1:${w?w.c1:"#f5c542"};--c2:${w?w.c2:"#f7931e"}">
     <div class="phead"><button class="btn sm ghost" id="pBack">${jt("back")}</button>
-      <div class="ptitle">${w?w.ico+" "+esc(wName(w))+" · ":""}${st.type==="stage"?jt("stage")+" "+st.n:st.type==="final"?jt("finalT"):(st.type==="boss"?jt("boss"):jt("superBoss"))}</div>
+      <div class="ptitle">${w?w.ico+" "+esc(wName(w))+" · ":""}${st.type==="stage"?jt("stage")+" "+st.n:st.type==="final"?jt("finalT"):(st.type==="boss"?jt("boss"):jt("superBoss"))}
+        <span class="mtag ${comp?"comp":"train"}">${comp?jt("compTag"):jt("trainTag")}</span></div>
       <span class="score-pill">${jt("time")} <b id="pT">0:00</b></span></div>
+    ${comp?`<div class="noleave">${jt("noLeave")}</div>`:""}
     ${isBoss?`<div class="bossbox"><div class="bossico" id="bIco">${bIco}</div><div class="bossinfo"><b>${esc(bName)}</b><div class="hpbar"><i id="hp" style="width:100%"></i></div><small>${jt("hp")}</small></div></div>`:""}
     <div class="dots">${st.items.map((_,k)=>`<i id="d${k}" class="${k===0?"cur":""}"></i>`).join("")}</div>
     <div class="pcardq" id="qBox"></div>
@@ -257,30 +280,90 @@ function play(key){
   </div>`;
   $("#pBack").onclick = () => { stopTimer(); renderMap(w?"world"+w.id:null); };
   stopTimer(); timer = setInterval(()=>{ secs++; const el = document.getElementById("pT"); if(!el) return stopTimer(); el.textContent = Math.floor(secs/60)+":"+String(secs%60).padStart(2,"0"); }, 1000);
+  if(comp){ leaveHandler = e => { if(e.type==="visibilitychange" && !document.hidden) return; if(current) current(null, "left"); };
+    document.addEventListener("visibilitychange", leaveHandler); window.addEventListener("blur", leaveHandler); }
   const fmt = (x,k) => k===0 ? (x<0?"−"+(-x):String(x)) : (x<0?"− "+(-x):"+ "+x);
-  function show(){
-    const it = st.items[i];
-    $("#qBox").innerHTML = `<div class="qn">${jt("exN")} ${i+1} ${jt("of")} ${total}</div>
-      <div class="qcol ${it.length>7?"long":""}">${it.map((x,k)=>`<div class="${x<0?"neg":""}">${fmt(x,k)}</div>`).join("")}</div>
-      <form id="qF"><input class="input ans" id="qA" inputmode="numeric" autocomplete="off" placeholder="?"><button class="btn">${jt("check")}</button></form>`;
-    $("#qA").focus(); busy = false;
-    $("#qF").onsubmit = e => { e.preventDefault(); if(busy) return; const v = $("#qA").value.trim().replace("−","-"); if(v==="") return; busy = true;
-      const ans = it.reduce((a,b)=>a+b,0), right = Number(v)===ans; res.push(right);
-      const dot = $("#d"+i); dot.className = right?"ok":"bad";
-      const fb = $("#fb"), box = $("#qBox");
-      if(right){ ok++; beep("ok"); const g = jt("great"); fb.innerHTML = `<span class="fbok">✔ ${g[Math.floor(Math.random()*g.length)]} <em>+10 XP</em></span>`; box.classList.add("flashok");
-        if(isBoss){ const hp = Math.max(0, 100 - Math.round(ok/st.pass*100)); $("#hp").style.width = hp+"%"; const bi = $("#bIco"); bi.classList.remove("hit"); void bi.offsetWidth; bi.classList.add("hit"); } }
-      else { beep("bad"); fb.innerHTML = `<span class="fbbad">✘ ${jt("answer")}<b dir="ltr">${ans}</b></span>`; box.classList.add("shake"); }
-      setTimeout(()=>{ box.classList.remove("flashok","shake"); fb.innerHTML = ""; i++;
-        if(i>=total) return finish(); const d = $("#d"+i); if(d) d.className = "cur"; show(); }, right?750:1600);
-    };
+
+  function countdown(ms, onEnd){
+    const bar = $("#tb"), num = $("#tn"), t0 = performance.now(); let lastSec = null;
+    const iv = setInterval(()=>{
+      const left = Math.max(0, ms - (performance.now()-t0)), pct = left/ms*100;
+      if(bar){ bar.style.width = pct+"%"; bar.className = pct>50 ? "" : pct>25 ? "mid" : "low"; }
+      const s = Math.ceil(left/1000); if(num) num.textContent = s;
+      if(s<=3 && s>0 && s!==lastSec){ lastSec = s; beep("tick"); }
+      if(left<=0){ clearInterval(iv); onEnd(); }
+    }, 100);
+    qTimers.push(iv);
+    return () => performance.now()-t0;
   }
+
+  function show(){
+    const it = st.items[i], ans = it.reduce((a,b)=>a+b,0);
+    busy = false; clearQ();
+    $("#qBox").innerHTML = `<div class="qn">${jt("exN")} ${i+1} ${jt("of")} ${total}</div>
+      ${comp?`<div class="tbar"><i id="tb"></i></div><div class="tnum">⏳ <b id="tn"></b></div>`:""}
+      ${flashMode ? `<div class="fbox" id="fbx"><span id="fN">${jt("flashReady")}</span></div>`
+                  : `<div class="qcol ${it.length>7?"long":""}">${it.map((x,k)=>`<div class="${x<0?"neg":""}">${fmt(x,k)}</div>`).join("")}</div>`}
+      <form id="qF" ${flashMode?'style="display:none"':""}>${flashMode?`<div class="fask">${jt("flashAsk")}</div>`:""}<input class="input ans" id="qA" inputmode="numeric" autocomplete="off" placeholder="?"><button class="btn">${jt("check")}</button></form>`;
+    let elapsed = () => 0, limit = 0;
+    const resolve = (v, reason) => {
+      if(busy) return; busy = true; current = null; clearQ();
+      const right = !reason && Number(v)===ans;
+      const fast = right && comp && elapsed() < limit/2;
+      const dot = $("#d"+i); if(dot) dot.className = right?"ok":"bad";
+      const fb = $("#fb"), box = $("#qBox");
+      if(right){ ok++; if(fast) speed++; beep("ok"); const g = jt("great");
+        fb.innerHTML = `<span class="fbok">✔ ${g[Math.floor(Math.random()*g.length)]} <em>+10 XP</em>${fast?` <em class="spd">${jt("speed")}</em>`:""}</span>`; box.classList.add("flashok");
+        if(isBoss){ const hp = Math.max(0, 100 - Math.round(ok/st.pass*100)); $("#hp").style.width = hp+"%"; const bi = $("#bIco"); bi.classList.remove("hit"); void bi.offsetWidth; bi.classList.add("hit"); } }
+      else { misses++; beep("bad");
+        const msg = reason==="timeout" ? jt("timeout") : reason==="left" ? jt("left") : "✘";
+        fb.innerHTML = `<span class="fbbad">${msg} ${jt("answer")}<b dir="ltr">${ans}</b></span>`; box.classList.add("shake");
+        if(flashMode){ const fbx = $("#fbx"); if(fbx) fbx.innerHTML = `<div class="qcol ${it.length>7?"long":""}">${it.map((x,k)=>`<div class="${x<0?"neg":""}">${fmt(x,k)}</div>`).join("")}</div>`; } }
+      qTimers.push(setTimeout(()=>{ box.classList.remove("flashok","shake"); fb.innerHTML = ""; i++;
+        if(i>=total) return finish(); const d = $("#d"+i); if(d) d.className = "cur"; show(); }, right ? 800 : (flashMode ? 2600 : 1800)));
+    };
+    $("#qF").onsubmit = e => { e.preventDefault(); const v = $("#qA").value.trim().replace("−","-"); if(v==="") return; resolve(v); };
+    if(!comp){ $("#qA").focus(); return; }
+    current = resolve;
+    if(flashMode){
+      const fN = $("#fN"); let k = 0;
+      const askNow = () => { if(busy) return; $("#fbx").innerHTML = `<span class="fdone">❓</span>`; $("#qF").style.display = ""; $("#qA").focus();
+        limit = ANS_T(it); elapsed = countdown(limit, () => resolve(null, "timeout")); };
+      const next = () => { if(busy) return;
+        if(k>=it.length) return askNow();
+        const x = it[k]; fN.textContent = ""; fN.className = "";
+        qTimers.push(setTimeout(()=>{ if(busy) return; fN.textContent = x<0 ? "−"+(-x) : (k===0 ? x : "+"+x); fN.className = "fnum "+(x<0?"neg":""); k++;
+          qTimers.push(setTimeout(next, FLASH_T(digitsOf(x)))); }, 140));
+      };
+      const tb = $("#tb"); if(tb) tb.style.width = "100%";
+      qTimers.push(setTimeout(next, 900));
+    } else {
+      $("#qA").focus(); limit = qTime(it); elapsed = countdown(limit, () => resolve(null, "timeout"));
+    }
+  }
+
   function finish(){
     stopTimer();
+    if(!comp){
+      const xp = ok*5; S.xp += xp; S.correct += ok;
+      const newB = []; if(S.correct>=100 && !S.badges.includes("hundred")){ S.badges.push("hundred"); newB.push(BADGES.find(b=>b.id==="hundred")); }
+      save(); window.scrollTo({top:0});
+      app.querySelector(".playwrap").innerHTML = `<div class="rescard">
+        <h2>${jt("trainRes")}</h2>
+        <div class="resline">${jt("result")}: <b>${ok}/${total}</b> · ${jt("time")} ${Math.floor(secs/60)}:${String(secs%60).padStart(2,"0")}</div>
+        <div class="gains"><span>⚡ ${fill(jt("gainXp"),{n:xp})}</span></div>
+        ${newB.map(b=>`<div class="newbadge">${jt("newBadge")}${b.ico} ${esc(LANG==="fr"?b.fr:b.ar)}</div>`).join("")}
+        <div class="muted">${jt("trainNote")}</div>
+        <div class="row" style="margin-top:14px"><button class="btn ghost" id="rRetry">${jt("retry")}</button><button class="btn" id="rComp">${jt("tryComp")}</button><button class="btn ghost" id="rMap">${jt("map")}</button></div></div>`;
+      $("#rRetry").onclick = () => play(st.key);
+      $("#rComp").onclick = () => { S.mode = "comp"; save(); play(st.key); };
+      $("#rMap").onclick = () => renderMap(w?"world"+w.id:null);
+      return;
+    }
     const stars = ok>=st.s3 ? 3 : ok>=st.s2 ? 2 : ok>=st.pass ? 1 : 0, passed = stars>0;
     const old = st.key==="final" ? (S.finalWon?3:0) : starsOf(st.key);
     const rBefore = curRank();
-    let xp = ok*10 + (passed && isBoss ? 30 : 0) + (st.type==="final" && passed ? 200 : 0), coins = 0;
+    let xp = ok*10 + speed*5 + (passed && isBoss ? 30 : 0) + (st.type==="final" && passed ? 200 : 0), coins = 0;
     if(stars > old) coins += (stars-old) * (isBoss ? 10 : 5);
     if(passed && !old && isBoss) coins += 20;
     S.xp += xp; S.correct += ok;
@@ -288,9 +371,7 @@ function play(key){
     const award = id => { if(!S.badges.includes(id)){ S.badges.push(id); newBadges.push(BADGES.find(b=>b.id===id)); } };
     if(passed){
       if(st.key!=="final" && stars>old) S.stars[st.key] = stars;
-      // سلسلة الأيام
       const td = today(); if(S.streak.last!==td){ S.streak.n = isYesterday(S.streak.last) ? S.streak.n+1 : 1; S.streak.last = td; }
-      // مهمة اليوم
       if(S.daily.date!==td) S.daily = {date:td, wins:0, done:false};
       S.daily.wins++; if(S.daily.wins>=2 && !S.daily.done){ S.daily.done = true; coins += 15; }
       award("first");
@@ -315,7 +396,7 @@ function play(key){
       <div class="bigstars">${[1,2,3].map(k=>`<span class="${k<=stars?"on":""}" style="animation-delay:${k*0.25}s">★</span>`).join("")}</div>
       <div class="resline">${jt("result")}: <b>${ok}/${total}</b> · ${jt("time")} ${Math.floor(secs/60)}:${String(secs%60).padStart(2,"0")}</div>
       ${!passed?`<div class="muted">${fill(jt("need"),{n:st.pass})}</div>`:""}
-      <div class="gains"><span>⚡ ${fill(jt("gainXp"),{n:xp})}</span>${coins?`<span>🟡 ${fill(jt("gainCoins"),{n:coins})}</span>`:""}</div>
+      <div class="gains"><span>⚡ ${fill(jt("gainXp"),{n:xp})}</span>${speed?`<span>🚀 ${fill(jt("speedN"),{n:speed})}</span>`:""}${coins?`<span>🟡 ${fill(jt("gainCoins"),{n:coins})}</span>`:""}</div>
       ${rankUp?`<div class="rankup">${jt("rankUp")}${rAfter.ico} ${esc(rankName(rAfter))}</div>`:""}
       ${newBadges.map(b=>`<div class="newbadge">${jt("newBadge")}${b.ico} ${esc(LANG==="fr"?b.fr:b.ar)}</div>`).join("")}
       <div class="row" style="margin-top:14px">
