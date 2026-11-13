@@ -31,9 +31,9 @@ window.SFA_DATA = {
   {
    "id": 3,
    "title": "✨ جديد: مسابقة رحلة الأبطال 🏆",
-   "body": "انطلقت مسابقة «رحلة الأبطال» على المنصة! حرّر العوالم الستة، اهزم الحرّاس واجمع النجوم، ثم واجه إمبراطور الأرقام لتفوز بالكأس الذهبية ولقب «العقل العبقري».\nالمشاركة مجانية لكل الأطفال خلال فترة التجربة. أرسل شهادتك للأستاذ عبر واتساب لنحتفل بك 🎉",
+   "body": "انطلقت مسابقة «رحلة الأبطال» على المنصة! حرّر العوالم الستة، اهزم الحرّاس واجمع النجوم، ثم واجه إمبراطور الأرقام لتفوز بالكأس الذهبية ولقب «العقل العبقري».\nالمشاركة مجاناً. أرسل شهادتك للأستاذ عبر واتساب لنحتفل بك 🎉",
    "title_fr": "✨ Nouveau : le concours de l'aventure des champions 🏆",
-   "body_fr": "Le concours « L'aventure des champions » est lancé ! Libère les six mondes, bats les gardiens, collectionne les étoiles, puis affronte l'Empereur des nombres pour gagner la coupe d'or et le titre de « Cerveau génial ».\nParticipation gratuite pour tous les enfants pendant la période d'essai. Envoie ton diplôme à l'enseignant sur WhatsApp pour qu'on te félicite 🎉",
+   "body_fr": "Le concours « L'aventure des champions » est lancé ! Libère les six mondes, bats les gardiens, collectionne les étoiles, puis affronte l'Empereur des nombres pour gagner la coupe d'or et le titre de « Cerveau génial ».\nParticipation gratuite. Envoie ton diplôme à l'enseignant sur WhatsApp pour qu'on te félicite 🎉",
    "tag": "مسابقة",
    "date": "2026-11-13",
    "url": "https://sorobanforall.com/#journey",

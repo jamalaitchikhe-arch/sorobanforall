@@ -8,7 +8,7 @@
 /* ---------------- النصوص ---------------- */
 const JT = {
 ar:{
- free:"🎁 مجاني خلال فترة التجربة", title:"رحلة الأبطال", sub:"من الخرزة الأولى إلى العقل العبقري",
+ free:"🎁 مجاناً", title:"رحلة الأبطال", sub:"من الخرزة الأولى إلى العقل العبقري",
  createT:"ابدأ مغامرتك!", createD:"اكتب اسمك واختر بطلك، ثم انطلق في رحلة العوالم الستة.", name:"اسمك", namePh:"مثال: محمد، سكينة…",
  boy:"بطل", girl:"بطلة", pickAv:"اختر شخصيتك", start:"🚀 ابدأ الرحلة", needName:"اكتب اسمك من فضلك ✍️", needGen:"اختر: بطل أم بطلة؟",
  coins:"خرزات ذهبية", xp:"خبرة", streak:"أيام متتالية", daily:"🎯 مهمة اليوم", dailyD:"أنجح في مرحلتين اليوم", dailyDone:"✔ أنجزت مهمة اليوم! +15 🟡",
@@ -32,7 +32,7 @@ ar:{
  rateBtn:"⭐ قيّم المسابقة", stars:"نجوم", mapT:"🗺️ خريطة العوالم", exN:"تمرين", of:"من"
 },
 fr:{
- free:"🎁 Gratuit pendant la période d'essai", title:"L'aventure des champions", sub:"De la première perle au cerveau génial",
+ free:"🎁 Gratuit", title:"L'aventure des champions", sub:"De la première perle au cerveau génial",
  createT:"Commence ton aventure !", createD:"Écris ton prénom, choisis ton héros et pars à la conquête des six mondes.", name:"Ton prénom", namePh:"ex. : Mohamed, Sakina…",
  boy:"Champion", girl:"Championne", pickAv:"Choisis ton personnage", start:"🚀 Commencer", needName:"Écris ton prénom ✍️", needGen:"Champion ou championne ?",
  coins:"perles d'or", xp:"XP", streak:"jours d'affilée", daily:"🎯 Mission du jour", dailyD:"Réussis deux étapes aujourd'hui", dailyDone:"✔ Mission du jour accomplie ! +15 🟡",
