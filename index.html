@@ -448,7 +448,7 @@ nav a.navj.on{color:#1a1200}
 .fbdone{padding:20px 6px}.fbbig{font-size:4rem;animation:pop .6s both}.fbcoins{color:var(--gold);font-weight:800;font-size:1.1rem}
 
 /* ===== شريط الإحصائيات والشهادات ===== */
-.statband{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:22px 0 6px;padding:18px;border-radius:24px;background:linear-gradient(135deg,rgba(79,163,255,.10),rgba(245,197,66,.08));border:1px solid var(--line);box-shadow:var(--shadow)}
+.statband{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:40px 0 6px;padding:18px;border-radius:24px;background:linear-gradient(135deg,rgba(79,163,255,.10),rgba(245,197,66,.08));border:1px solid var(--line);box-shadow:var(--shadow)}
 .sb{text-align:center;padding:12px 6px;border-radius:18px;background:rgba(8,20,45,.55);border:1px solid rgba(255,255,255,.06);transition:transform .2s,border-color .2s}
 .sb:hover{transform:translateY(-4px);border-color:rgba(245,197,66,.5)}
 .sbi{font-size:1.9rem;line-height:1.2}
@@ -785,12 +785,12 @@ function viewHome(){
     </div>
     <div class="hero-art"><div class="ring"><img src="logo-soroban.png" alt=""></div></div>
   </section>
-  ${statsBand()}
   <div class="sec-title"><h2>${t("latestAnn")}</h2><a class="btn sm ghost" href="#announcements">${t("all")}</a></div>
   ${ann.length ? `<div class="grid g2">${ann.map(annCard).join("")}</div>` : emptyBox("📭", t("noAnn"))}
   <div class="sec-title"><h2>${t("groupsTitle")}</h2></div>
   ${groupsGrid()}
-  ${testimonialsSection()}`;
+  ${testimonialsSection()}
+  ${statsBand()}`;
   animateCounters();
 }
 /* ===== الإحصائيات (أرقام حقيقية فقط) والشهادات ===== */
@@ -802,7 +802,6 @@ function statsBand(){
   items.push({n:D.groups.length, ico:"👥", l:t("stGroupsN")});
   if(exCount) items.push({n:exCount, ico:"✏️", l:t("stExercises")});
   if(WB) items.push({n:WB.lessons.length, ico:"🗺️", l:t("stWorlds")});
-  items.push({n:4, ico:"🎮", l:t("stGamesN")});
   items.push({n:10, ico:"🏅", l:t("stBadges")});
   if(+st.years > 0) items.push({n:+st.years, plus:true, ico:"📅", l:t("stYears")});
   return `<section class="statband">${items.slice(0,6).map(it=>`<div class="sb"><div class="sbi">${it.ico}</div><b class="cnt" data-to="${it.n}">0</b>${it.plus?'<b class="plus">+</b>':""}<span>${it.l}</span></div>`).join("")}</section>`;
