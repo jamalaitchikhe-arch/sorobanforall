@@ -463,6 +463,21 @@ nav a.navj.on{color:#1a1200}
 .testi figcaption{display:flex;align-items:center;gap:10px}
 .tav{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:900;color:#1a1200;background:linear-gradient(135deg,var(--gold),var(--orange))}
 .testi figcaption small{display:block;color:var(--muted)}
+
+/* ===== مواعيد المجموعة وزر رحلة الأبطال ===== */
+.sched{display:flex;gap:14px;align-items:flex-start;margin-top:16px;padding:14px 18px;border-radius:18px;background:linear-gradient(135deg,rgba(79,163,255,.14),rgba(79,163,255,.04));border:1px solid rgba(79,163,255,.45)}
+.schi{font-size:2rem;line-height:1}
+.sched b{color:var(--sky)}
+.schb{white-space:pre-line;font-weight:700;color:#e2ebfb;margin-top:2px}
+.tabs .jbtn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:8px;margin-inline-start:auto;color:#1a1200!important;font-weight:900;border:0!important;
+  background:linear-gradient(135deg,#ffe28a,var(--gold) 35%,var(--orange) 75%,#ff7a00)!important;box-shadow:0 0 0 2px rgba(255,226,138,.35),0 6px 22px rgba(247,147,30,.55);animation:jglow 2s ease-in-out infinite}
+.tabs .jbtn:hover{transform:translateY(-2px) scale(1.03)}
+.jbi{display:inline-block;font-size:1.25rem;animation:jwig 2.2s ease-in-out infinite}
+.jsh{position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-20deg);animation:jsweep 2.6s ease-in-out infinite}
+@keyframes jglow{0%,100%{box-shadow:0 0 0 2px rgba(255,226,138,.35),0 6px 22px rgba(247,147,30,.45)}50%{box-shadow:0 0 0 5px rgba(255,226,138,.15),0 8px 32px rgba(247,147,30,.8)}}
+@keyframes jwig{0%,70%,100%{transform:rotate(0) scale(1)}78%{transform:rotate(-14deg) scale(1.15)}86%{transform:rotate(12deg) scale(1.15)}94%{transform:rotate(-6deg)}}
+@keyframes jsweep{0%,40%{left:-60%}80%,100%{left:130%}}
+@media(max-width:600px){.tabs .jbtn{width:100%;justify-content:center;margin-inline-start:0}}
 </style>
 </head>
 <body>
@@ -509,6 +524,7 @@ ar:{
  stStudents:"متدرب ومتدربة", stGroupsN:"مجموعات", stExercises:"تمريناً تفاعلياً", stWorlds:"عوالم في رحلة الأبطال", stGamesN:"ألعاب ذهنية", stBadges:"أوسمة وشهادات", stYears:"سنوات من الخبرة", testiTitle:"💬 قالوا عنّا",
  setStats:"📊 أرقام المنصة", setStudents:"عدد المتدربين الحقيقي (اتركه فارغاً لإخفائه)", setYears:"سنوات الخبرة (اختياري)", setStatsD:"تظهر هذه الأرقام في الصفحة الرئيسية. اكتب الأرقام الحقيقية فقط.",
  testiAdm:"💬 آراء أولياء الأمور والتلاميذ", testiAdmD:"أضف آراءً حقيقية فقط وبإذن أصحابها (الاسم الأول يكفي).", tName:"الاسم *", tRole:"الصفة (مثال: ولية أمر، تلميذ في المجموعة 1)", tText:"الرأي *", tStars:"التقييم", noTesti:"لا توجد آراء بعد",
+ schedT:"📅 مواعيد الحصص", schedD:"مواعيد حصص هذه المجموعة (تظهر في أعلى صفحة المجموعة)", schedPh:"مثال: السبت 10:00 – 11:00 · الأربعاء 18:00 – 19:00 (عبر Google Meet)", jBtn:"رحلة الأبطال",
  brand:"سوروبان للجميع", navJourney:"🏆 رحلة الأبطال", jPromoT:"🏆 رحلة الأبطال — مجاناً!", jPromoD:"6 عوالم، حرّاس، نجوم ومكافآت… حتى الكأس الذهبية ولقب «العقل العبقري». مجاناً.", jPromoB:"🚀 ابدأ المغامرة", navHome:"الرئيسية", navAnn:"الإعلانات", navGroups:"المجموعات", langSwitch:"Français",
  slogan:"نكتشف المواهب، ونصنع مهارات المستقبل", teacherSpace:"فضاء الأستاذ",
  group:"المجموعة", heroTag:"منصة الحساب الذهني", heroT1:"سوروبان", heroT2:"للجميع",
@@ -572,6 +588,7 @@ fr:{
  stStudents:"apprenants", stGroupsN:"groupes", stExercises:"exercices interactifs", stWorlds:"mondes dans l'aventure", stGamesN:"jeux de calcul", stBadges:"médailles et diplômes", stYears:"années d'expérience", testiTitle:"💬 Ils parlent de nous",
  setStats:"📊 Chiffres de la plateforme", setStudents:"Nombre réel d'apprenants (vide = masqué)", setYears:"Années d'expérience (facultatif)", setStatsD:"Ces chiffres s'affichent sur la page d'accueil. N'indique que des chiffres réels.",
  testiAdm:"💬 Avis des parents et des élèves", testiAdmD:"N'ajoute que des avis réels, avec l'accord de leurs auteurs (le prénom suffit).", tName:"Nom *", tRole:"Qualité (ex. : maman d'élève, élève du groupe 1)", tText:"Avis *", tStars:"Note", noTesti:"Aucun avis pour l'instant",
+ schedT:"📅 Horaires des séances", schedD:"Horaires de ce groupe (affichés en haut de la page du groupe)", schedPh:"ex. : Samedi 10h00 – 11h00 · Mercredi 18h00 – 19h00 (sur Google Meet)", jBtn:"L'aventure des champions",
  brand:"Soroban pour tous", navJourney:"🏆 Aventure", jPromoT:"🏆 L'aventure des champions — gratuite !", jPromoD:"6 mondes, des gardiens, des étoiles et des récompenses… jusqu'à la coupe d'or et le titre de « Cerveau génial ». Gratuite.", jPromoB:"🚀 Commencer l'aventure", navHome:"Accueil", navAnn:"Annonces", navGroups:"Groupes", langSwitch:"العربية",
  slogan:"Nous révélons les talents et construisons les compétences de demain", teacherSpace:"Espace enseignant",
  group:"Groupe", heroTag:"Plateforme de calcul mental", heroT1:"Soroban", heroT2:"pour tous",
@@ -949,7 +966,8 @@ async function viewGroup(id, tab){
   app.innerHTML = `
     <div class="ghead"><div class="gbadge">${g.id}</div><div style="flex:1">${store.get("name_g"+g.id,"")?`<div class="hi">👋 ${t(store.get("gen_g"+g.id,"m")==="f"?"hiF":"hiM")} <b dir="auto">${esc(store.get("name_g"+g.id,""))}</b></div>`:""}<h1 style="margin:0">${esc(gName(g.id))}</h1></div>
     <button class="btn sm ghost" id="logout">${t("logout")}</button></div>
-    <div class="tabs">${tabs.map(([k,l])=>`<a href="#group/${g.id}/${k}" class="${k===tab?"on":""}">${t(l)}</a>`).join("")}</div>
+    ${c.schedule && String(c.schedule).trim() ? `<div class="sched"><div class="schi">📅</div><div><b>${t("schedT").replace("📅 ","")}</b><div class="schb" dir="auto">${esc(c.schedule)}</div></div></div>` : ""}
+    <div class="tabs">${tabs.map(([k,l])=>`<a href="#group/${g.id}/${k}" class="${k===tab?"on":""}">${t(l)}</a>`).join("")}<a href="#journey" class="jbtn"><span class="jbi">🏆</span><span>${t("jBtn")}</span><span class="jsh"></span></a></div>
     <div id="tabBody"></div>`;
   $("#logout").onclick = () => { delete unlocked[g.id]; sess.del("g"+g.id); location.hash = "#groups"; };
   const body = $("#tabBody");
@@ -1296,6 +1314,9 @@ function admGrp(b){
      <button class="btn sm">${t("addHw")}</button></form><hr style="border-color:var(--line)">
      ${C.homework.map((h,k)=>item("homework",k,h.title, h.due?t("due")+esc(h.due):t("noDue"))).join("")||`<p class="muted">${t("noHwA")}</p>`}</div>
 
+   <div class="card"><h3>${t("schedT")}</h3>
+     <form id="scF"><label class="field"><span>${t("schedD")}</span><textarea class="input" name="schedule" rows="4" dir="auto" placeholder="${t("schedPh")}">${esc(C.schedule||"")}</textarea></label>
+     <button class="btn sm">${t("save")}</button> <button type="button" class="btn sm red" id="scClr">${t("remove")}</button></form></div>
    <div class="card"><h3>${t("weekly")}</h3>
      <form id="chF"><label class="field"><span>${t("fTitle").replace(" (AR)","").replace(" *","")}</span><input class="input" name="title" value="${esc(C.challenge.title||"")}"></label>
      <label class="field"><span>${t("chDesc")}</span><textarea class="input" name="desc" rows="3">${esc(C.challenge.desc||"")}</textarea></label>
@@ -1317,6 +1338,8 @@ function admGrp(b){
   add("#hwF", o => C.homework.push({title:o.title, desc:o.desc, due:o.due, url:o.url}));
   add("#gmF", o => C.games.push({title:o.title, url:o.url, desc:o.desc}));
   add("#chF", o => C.challenge = {title:o.title, desc:o.desc, url:o.url});
+  $("#scF").onsubmit = e => { e.preventDefault(); C.schedule = fd(e.target).schedule; markDirty(); toast(t("saved")); admGrp(b); };
+  $("#scClr").onclick = () => { C.schedule = ""; markDirty(); admGrp(b); };
   $("#chClr").onclick = () => { C.challenge = {}; markDirty(); admGrp(b); };
   b.querySelectorAll("[data-rm]").forEach(x => x.onclick = () => armed(x, () => { const [key,k] = x.dataset.rm.split(":"); C[key].splice(+k,1); markDirty(); admGrp(b); }));
 }
