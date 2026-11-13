@@ -424,6 +424,28 @@ nav a.navj.on{color:#1a1200}
 .fdone{font-size:4rem}
 .fask{font-weight:900;font-size:1.2rem;color:var(--gold);width:100%;margin-bottom:4px}
 .fbok .spd{color:#4fd1ff}
+
+/* ===== نافذة التقييم ===== */
+.fbbox{text-align:center;max-width:560px;background:radial-gradient(circle at 50% 0,rgba(245,197,66,.18),transparent 55%),var(--navy2);border:2px solid rgba(245,197,66,.55)}
+.fbhero{position:relative;display:inline-block;margin-top:4px}
+.fbav{display:grid;place-items:center;width:84px;height:84px;font-size:3rem;border-radius:50%;border:3px solid var(--gold);background:radial-gradient(circle,#24508f,#0b1b3a);box-shadow:0 0 26px rgba(245,197,66,.4);animation:bounce 1.6s ease-in-out infinite}
+.fbspark{position:absolute;top:-6px;inset-inline-end:-10px;font-size:1.6rem;animation:spark 2s ease-in-out infinite}
+.fbbox h2{margin:10px 0 2px}
+.faces{display:flex;justify-content:center;gap:8px;margin:14px 0 8px;flex-wrap:wrap}
+.faces button{background:#0b1b3a;border:2px solid var(--line);border-radius:16px;padding:8px 6px;width:86px;cursor:pointer;color:var(--text);font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:2px;transition:transform .15s,border-color .15s}
+.faces button span{font-size:2.2rem;transition:transform .2s}
+.faces button small{color:var(--muted);font-size:.78rem}
+.faces button:hover span{transform:scale(1.18)}
+.faces button.on{border-color:var(--gold);background:rgba(245,197,66,.14);transform:translateY(-4px)}
+.faces button.on span{transform:scale(1.25)}
+@media(max-width:480px){.faces{gap:4px}.faces button{width:54px;padding:6px 1px}.faces button span{font-size:1.7rem}.faces button small{font-size:.62rem}.fbbox{padding:18px 12px}}
+.fbchips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:6px 0 4px}
+.fbchips button{background:#0b1b3a;border:1.5px solid var(--line);border-radius:99px;padding:5px 12px;color:var(--text);cursor:pointer;font-family:inherit;font-size:.9rem}
+.fbchips button.on{border-color:var(--sky);background:rgba(79,163,255,.18)}
+.fbbox .field{text-align:start}
+.fbreward{display:inline-block;margin:4px 0 6px;color:var(--gold);font-weight:800;background:rgba(245,197,66,.1);border:1px dashed rgba(245,197,66,.5);border-radius:12px;padding:5px 12px}
+.fbsend{background:linear-gradient(135deg,#3ee07a,#1fa855);color:#fff}
+.fbdone{padding:20px 6px}.fbbig{font-size:4rem;animation:pop .6s both}.fbcoins{color:var(--gold);font-weight:800;font-size:1.1rem}
 </style>
 </head>
 <body>

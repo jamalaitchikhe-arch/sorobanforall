@@ -29,7 +29,7 @@ ar:{
  modeComp:"🏆 وضع المسابقة", modeCompD:"عدّاد تنازلي وأرقام وامضة · نجوم وفتح المراحل", modeTrain:"🎓 وضع التدريب", modeTrainD:"بلا عدّاد للتعلّم براحة · خبرة فقط",
  compTag:"🏆 مسابقة", trainTag:"🎓 تدريب", noLeave:"⚠️ لا تغادر الصفحة أثناء التمرين، وإلا لن يُحتسب", timeout:"⏰ انتهى الوقت!", left:"🚫 غادرت الصفحة — لا يُحتسب.",
  speed:"⚡ +5 سرعة", speedN:"{n} إجابات سريعة", flashReady:"استعد… ركّز جيداً 👀", flashAsk:"كم المجموع؟", trainRes:"🎓 انتهى التدريب", trainNote:"النجوم وفتح المراحل تُكسب في وضع المسابقة 🏆", tryComp:"🏆 جرّب في وضع المسابقة",
- stars:"نجوم", mapT:"🗺️ خريطة العوالم", exN:"تمرين", of:"من"
+ rateBtn:"⭐ قيّم المسابقة", stars:"نجوم", mapT:"🗺️ خريطة العوالم", exN:"تمرين", of:"من"
 },
 fr:{
  free:"🎁 Gratuit pendant la période d'essai", title:"L'aventure des champions", sub:"De la première perle au cerveau génial",
@@ -53,7 +53,7 @@ fr:{
  modeComp:"🏆 Mode concours", modeCompD:"Compte à rebours et nombres éclair · étoiles et nouvelles étapes", modeTrain:"🎓 Mode entraînement", modeTrainD:"Sans chrono pour apprendre tranquillement · XP seulement",
  compTag:"🏆 Concours", trainTag:"🎓 Entraînement", noLeave:"⚠️ Ne quitte pas la page pendant l'exercice, sinon il ne compte pas", timeout:"⏰ Temps écoulé !", left:"🚫 Tu as quitté la page — non compté.",
  speed:"⚡ +5 rapidité", speedN:"{n} réponses rapides", flashReady:"Prêt… concentre-toi 👀", flashAsk:"Quelle est la somme ?", trainRes:"🎓 Entraînement terminé", trainNote:"Les étoiles et les nouvelles étapes se gagnent en mode concours 🏆", tryComp:"🏆 Essayer en mode concours",
- stars:"étoiles", mapT:"🗺️ Carte des mondes", exN:"Exercice", of:"sur"
+ rateBtn:"⭐ Donne ton avis", stars:"étoiles", mapT:"🗺️ Carte des mondes", exN:"Exercice", of:"sur"
 }};
 const jt = k => { const L = (typeof LANG!=="undefined" && JT[LANG]) ? JT[LANG] : JT.ar; return L[k] ?? JT.ar[k] ?? k; };
 const fill = (s, o) => String(s).replace(/\{(\w+)\}/g, (_,k)=> o[k] ?? "");
@@ -191,6 +191,7 @@ function playerCard(){
     <button class="btn sm ghost" data-open="shop">${jt("shop")}</button>
     <button class="btn sm ghost" data-open="badges">${jt("badges")} <b>${S.badges.length}/${BADGES.length}</b></button>
     <button class="btn sm ghost" data-open="save">${jt("save")}</button>
+    <button class="btn sm ghost" data-open="fb">${jt("rateBtn")}</button>
   </div>`;
 }
 function isYesterday(d){ if(!d) return false; const x = new Date(d+"T12:00:00"); x.setDate(x.getDate()+1); const y = x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0"); return y===today(); }
@@ -232,7 +233,7 @@ function renderMap(scrollTo){
     </div>`;
   app.querySelectorAll("[data-play]").forEach(b => b.onclick = () => play(b.dataset.play));
   app.querySelectorAll("[data-mode]").forEach(b => b.onclick = () => { S.mode = b.dataset.mode; save(); renderMap(); });
-  app.querySelectorAll("[data-open]").forEach(b => b.onclick = () => ({shop:openShop, badges:openBadges, save:openSave})[b.dataset.open]());
+  app.querySelectorAll("[data-open]").forEach(b => b.onclick = () => ({shop:openShop, badges:openBadges, save:openSave, fb:()=>window.sfaAskFeedback()})[b.dataset.open]());
   app.querySelectorAll("[data-cert]").forEach(b => b.onclick = () => openCert(b.dataset.cert));
   const target = scrollTo ? document.getElementById(scrollTo) : (firstOpen ? document.getElementById("world"+firstOpen.w) : null);
   if(target) setTimeout(()=>target.scrollIntoView({behavior:"smooth", block:"center"}), 120);
@@ -497,4 +498,83 @@ function openCert(which){
     <div class="row" style="justify-content:center;margin-top:12px"><button class="btn" id="cPrint">${jt("print")}</button></div>`, "certmodal");
   M.el.querySelector("#cPrint").onclick = () => { document.body.classList.add("printing-cert"); try{ window.print(); }catch(e){ toast(jt("noPrint")); } setTimeout(()=>document.body.classList.remove("printing-cert"), 800); };
 }
+/* ---------------- نافذة التقييم عند مغادرة المسابقة ---------------- */
+const FBT = {
+ ar:{ title:"كيف كانت مغامرتك يا {n}؟", sub:"رأيك يساعدنا نجعل رحلة الأبطال أروع! 💛", faces:["مملّة","عادية","جيدة","ممتعة","رائعة جداً"],
+      chips:["ممتعة جداً 🎉","صعبة قليلاً 😅","الوقت قصير ⏰","أريد عوالم أكثر 🌍","أحببت الحرّاس ⚔️","أحببت الشهادة 🏅"],
+      comment:"اكتب تعليقك (اختياري)", ph:"ماذا أعجبك؟ ماذا تريد أن نضيف؟", send:"📨 إرسال عبر واتساب", later:"لاحقاً", pick:"اختر وجهاً أولاً 👆",
+      reward:"🎁 أرسل رأيك واربح 10 خرزات ذهبية", thanks:"شكراً لك يا بطل! 🎉", thanksF:"شكراً لكِ يا بطلة! 🎉", thanksD:"وصلتك 10 خرزات ذهبية 🟡",
+      msgH:"⭐ تقييم مسابقة «رحلة الأبطال»", msgName:"الاسم", msgRate:"التقييم", msgRank:"الرتبة", msgStars:"النجوم", msgChips:"ملاحظات", msgCom:"التعليق" },
+ fr:{ title:"Comment était ton aventure, {n} ?", sub:"Ton avis nous aide à rendre l'aventure encore plus géniale ! 💛", faces:["Ennuyeuse","Moyenne","Bien","Amusante","Géniale"],
+      chips:["Très amusante 🎉","Un peu difficile 😅","Temps trop court ⏰","Plus de mondes 🌍","J'adore les gardiens ⚔️","J'adore le diplôme 🏅"],
+      comment:"Ton commentaire (facultatif)", ph:"Qu'est-ce qui t'a plu ? Que veux-tu qu'on ajoute ?", send:"📨 Envoyer sur WhatsApp", later:"Plus tard", pick:"Choisis d'abord un visage 👆",
+      reward:"🎁 Envoie ton avis et gagne 10 perles d'or", thanks:"Merci champion ! 🎉", thanksF:"Merci championne ! 🎉", thanksD:"Tu as reçu 10 perles d'or 🟡",
+      msgH:"⭐ Avis sur le concours « L'aventure des champions »", msgName:"Prénom", msgRate:"Note", msgRank:"Rang", msgStars:"Étoiles", msgChips:"Remarques", msgCom:"Commentaire" }
+};
+const ft = k => (FBT[(typeof LANG!=="undefined" && FBT[LANG]) ? LANG : "ar"][k]);
+const FACES = ["😞","😐","🙂","😃","🤩"];
+function fbEligible(force){
+  const st = store.get(KEY, null);
+  if(!st || !st.name || !(st.xp>0)) return false;                  // لعب مرحلة واحدة على الأقل
+  if(document.querySelector(".fbmodal,.welcome")) return false;
+  if(force) return true;
+  try{ if(sessionStorage.getItem("sfa_fbShown")) return false; }catch(e){}
+  if(st.feedback && st.feedback.date){ const days = (Date.now() - new Date(st.feedback.date).getTime())/864e5; if(days < 14) return false; }
+  return true;
+}
+function askFeedback(force){
+  if(!fbEligible(force===true)) return;
+  try{ sessionStorage.setItem("sfa_fbShown","1"); }catch(e){}
+  const st = Object.assign(fresh(), store.get(KEY, {}));
+  const wa = (typeof D!=="undefined" && D.settings && D.settings.whatsapp) || "212706600479";
+  let rate = 0; const picked = new Set();
+  const m = document.createElement("div"); m.className = "jmodal fbmodal";
+  m.innerHTML = `<div class="jbox fbbox"><button class="jx" aria-label="close">✕</button>
+    <div class="fbhero"><span class="fbav">${st.avatar||"🦁"}</span><span class="fbspark">✨</span></div>
+    <h2>${esc(ft("title")).replace("{n}", `<span class="wname" dir="auto">${esc(st.name)}</span>`)}</h2>
+    <p class="muted">${ft("sub")}</p>
+    <div class="faces">${FACES.map((f,i)=>`<button type="button" data-r="${i+1}"><span>${f}</span><small>${ft("faces")[i]}</small></button>`).join("")}</div>
+    <div class="fbchips">${ft("chips").map((c,i)=>`<button type="button" data-c="${i}">${c}</button>`).join("")}</div>
+    <label class="field"><span>${ft("comment")}</span><textarea class="input" id="fbTxt" rows="3" maxlength="500" dir="auto" placeholder="${ft("ph")}"></textarea></label>
+    <div class="fbreward">${ft("reward")}</div>
+    <div class="err" id="fbErr"></div>
+    <div class="row" style="justify-content:center;gap:10px"><a class="btn big-btn fbsend" id="fbSend" target="_blank" rel="noopener" href="#">${ft("send")}</a><button class="btn ghost" id="fbLater">${ft("later")}</button></div>
+  </div>`;
+  document.body.appendChild(m); requestAnimationFrame(()=>m.classList.add("open"));
+  const close = () => { m.classList.remove("open"); setTimeout(()=>m.remove(), 250); };
+  m.querySelector(".jx").onclick = close; m.querySelector("#fbLater").onclick = close;
+  m.onclick = e => { if(e.target===m) close(); };
+  const send = m.querySelector("#fbSend"), txt = m.querySelector("#fbTxt");
+  const build = () => {
+    const r = rankOf(st.xp), rank = st.finalWon ? GENIUS : r;
+    const stars = Object.values(st.stars||{}).reduce((a,b)=>a+b,0);
+    const lines = [ft("msgH"), "", `${ft("msgName")}: ${st.name}`, `${ft("msgRate")}: ${FACES[rate-1]||""} (${rate}/5)`, `${ft("msgRank")}: ${rank.ico} ${LANG==="fr"?rank.fr:rank.ar}`, `${ft("msgStars")}: ⭐ ${stars}`];
+    if(picked.size) lines.push(`${ft("msgChips")}: ${[...picked].map(i=>ft("chips")[i]).join(" · ")}`);
+    if(txt.value.trim()) lines.push(`${ft("msgCom")}: ${txt.value.trim()}`);
+    send.href = "https://wa.me/" + wa + "?text=" + encodeURIComponent(lines.join("\n"));
+  };
+  m.querySelectorAll("[data-r]").forEach(b => b.onclick = () => { rate = +b.dataset.r; m.querySelectorAll("[data-r]").forEach(x=>x.classList.toggle("on", x===b)); m.querySelector("#fbErr").textContent = ""; try{ beep("ok"); }catch(e){} build(); });
+  m.querySelectorAll("[data-c]").forEach(b => b.onclick = () => { const i = +b.dataset.c; picked.has(i) ? picked.delete(i) : picked.add(i); b.classList.toggle("on"); build(); });
+  txt.oninput = build; build();
+  send.onclick = e => {
+    if(!rate){ e.preventDefault(); m.querySelector("#fbErr").textContent = ft("pick"); return; }
+    build();
+    const cur = Object.assign(fresh(), store.get(KEY, {}));
+    const first = !cur.feedback; cur.feedback = {date:new Date().toISOString(), rate}; if(first) cur.coins += 10;
+    store.set(KEY, cur); if(S) S = cur;
+    setTimeout(()=>{
+      m.querySelector(".fbbox").innerHTML = `<div class="fbdone"><div class="fbbig">🎉</div><h2>${ft(cur.gen==="f"?"thanksF":"thanks")}</h2>${first?`<p class="fbcoins">${ft("thanksD")}</p>`:""}<button class="btn" id="fbOk">OK</button></div>`;
+      m.querySelector("#fbOk").onclick = () => { close(); if(location.hash==="#journey" && S) renderMap(); };
+      try{ playChime(); }catch(e){}
+    }, 300);
+  };
+}
+// الظهور عند مغادرة صفحة المسابقة (التنقل داخل الموقع)
+let lastHash = location.hash;
+window.addEventListener("hashchange", () => { const was = lastHash; lastHash = location.hash; if(was==="#journey" && location.hash!=="#journey") setTimeout(askFeedback, 600); });
+// الظهور عند محاولة الخروج بالفأرة نحو أعلى النافذة (الحاسوب)
+document.addEventListener("mouseout", e => { if(location.hash==="#journey" && !e.relatedTarget && e.clientY <= 0 && !document.querySelector(".playwrap")) askFeedback(); });
+// الظهور عند العودة للصفحة بعد إخفائها (الهاتف: الخروج من التطبيق ثم الرجوع)
+document.addEventListener("visibilitychange", () => { if(!document.hidden && location.hash==="#journey" && !document.querySelector(".playwrap")) setTimeout(askFeedback, 400); });
+window.sfaAskFeedback = () => askFeedback(true);
 })();
