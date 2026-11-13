@@ -20,13 +20,13 @@ window.SFA_DATA = {
   {
    "id": 2,
    "title": "مواعيد الحصص",
-   "body": "تُعلن مواعيد حصص كل مجموعة هنا أسبوعياً. تابعوا هذه الصفحة باستمرار.",
+   "body": "تجدون مواعيد حصص مجموعتكم داخل فضاء المجموعة الخاصة بكم 🔐\nادخلوا إلى «المجموعات» ← اختاروا رقم مجموعتكم ← أدخلوا الرمز السري.",
    "tag": "موعد",
    "date": "2026-11-08",
-   "url": "",
+   "url": "https://sorobanforall.com/#groups",
    "pinned": false,
    "title_fr": "Horaires des séances",
-   "body_fr": "Les horaires de chaque groupe sont publiés ici chaque semaine. Consultez régulièrement cette page."
+   "body_fr": "Les horaires des séances se trouvent dans l'espace de votre groupe 🔐\nAllez dans « Groupes » → choisissez le numéro de votre groupe → saisissez le code secret."
   },
   {
    "id": 3,
