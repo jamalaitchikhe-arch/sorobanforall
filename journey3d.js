@@ -77,7 +77,7 @@ function cloud(scale=1){ const g = new THREE.Group(), m = mat(0xffffff, {roughne
 
 function decorate(island, kind, R, topY){
   const place = (obj, r, a) => { obj.position.set(Math.cos(a)*r, topY, Math.sin(a)*r); island.add(obj); return obj; };
-  const ring = (n, r0, r1, f) => { for(let i=0;i<n;i++){ const a = rnd(Math.PI*1.05, Math.PI*1.95) + (i%3===0 ? Math.PI*0.9 : 0), r = rnd(r0, r1); f(a, r, i); } };
+  const ring = (n, r0, r1, f) => { for(let i=0;i<n;i++){ const a = rnd(Math.PI*1.18, Math.PI*1.82), r = rnd(r0, r1); f(a, r, i); } };
   if(kind==="valley"){ ring(7, R*.82, R*.95, (a,r)=>place(tree(rnd(1.2,2)), r, a));
     const rod = new THREE.Mesh(new THREE.CylinderGeometry(.06,.06,3.2,6), mat(0xc9a46a)); rod.rotation.z = Math.PI/2; rod.position.set(0, topY+1.1, -R*.55); island.add(rod);
     [0xf7931e,0x4fa3ff,0xf7931e,0x4fa3ff].forEach((c,i)=>{ const b = bead(c); b.position.set(-1.1+i*.73, topY+1.1, -R*.55); island.add(b); }); }
@@ -91,8 +91,8 @@ function decorate(island, kind, R, topY){
   if(kind==="desert"){ place(pyramid(1.6), R*.8, -2.2); place(pyramid(1.1), R*.85, -1.4);
     ring(4, R*.8, R*.95, (a,r)=>{ const c = new THREE.Group(); const b = new THREE.Mesh(new THREE.CylinderGeometry(.16,.18,1.1,6), mat(0x3f9a4a)); b.position.y=.55; c.add(b);
       const arm = new THREE.Mesh(new THREE.CylinderGeometry(.1,.1,.5,6), mat(0x3f9a4a)); arm.position.set(.22,.7,0); c.add(arm); place(c, r, a); }); }
-  if(kind==="castle"){ [[-1.9,2.6],[-1.2,3.2],[-.5,2.6]].forEach(([a,h])=>place(tower(h), R*.72, a));
-    const wall = new THREE.Mesh(new THREE.BoxGeometry(3.2,1.1,.4), mat(0xa89990)); wall.position.set(Math.cos(-1.2)*R*.72, topY+.55, Math.sin(-1.2)*R*.72); wall.lookAt(0, topY+.55, 0); island.add(wall); }
+  if(kind==="castle"){ [[-2.25,2.6],[-1.57,3.2],[-.9,2.6]].forEach(([a,h])=>place(tower(h), R*.8, a));
+    const wall = new THREE.Mesh(new THREE.BoxGeometry(3.2,1.1,.4), mat(0xa89990)); wall.position.set(Math.cos(-1.57)*R*.8, topY+.55, Math.sin(-1.57)*R*.8); wall.lookAt(0, topY+.55, 0); island.add(wall); }
 }
 
 function makeIsland(theme, R){
@@ -135,22 +135,22 @@ function render(focus){
 
   const anim = [], pick = [], islandsInfo = [];
   const WORLDS = J.WORLDS;
-  const N = WORLDS.length, RAD = 20;
+  const N = WORLDS.length, RAD = 25;
   const all = J.ALL(), firstOpen = all.find(s => J.isUnlocked(s.key) && !J.starsOf(s.key));
 
   WORLDS.forEach((w, i) => {
-    const R = 5.4, a = i * (Math.PI*2/N) - Math.PI/2, pos = new THREE.Vector3(Math.cos(a)*RAD, i*4.2, Math.sin(a)*RAD);
+    const R = 7.2, a = i * (Math.PI*2/N) - Math.PI/2, pos = new THREE.Vector3(Math.cos(a)*RAD, i*4.2, Math.sin(a)*RAD);
     const theme = THEMES[w.id], st = J.stagesOf(w.id), open = J.isUnlocked(st[0].key), cleared = J.worldCleared(w.id);
-    const isl = makeIsland(theme, R); isl.group.position.copy(pos); scene.add(isl.group);
+    const isl = makeIsland(theme, R); isl.group.position.copy(pos); isl.group.rotation.y = Math.PI/2 - a; scene.add(isl.group);
     isl.hit.userData = {island:i}; pick.push(isl.hit);
     decorate(isl.group, theme.deco, R, 0);
     // اسم الجزيرة
-    const nm = label(`${w.ico} ${J.wName(w)}`, 1.05, {border: cleared ? "#f5c542" : open ? "#4fa3ff" : "#7d8aa6"}); nm.position.set(0, 4.6, 0); isl.group.add(nm);
+    const nm = label(`${w.ico} ${J.wName(w)}`, 1.25, {border: cleared ? "#f5c542" : open ? "#4fa3ff" : "#7d8aa6"}); nm.position.set(0, 5.2, -R*.35); isl.group.add(nm);
     // المراحل على قوس
     const nodes = [];
     st.forEach((s, k) => {
-      const ang = Math.PI*.95 - (k/(Math.max(1,st.length-1))) * Math.PI*.9, r = R*.58;
-      const p = new THREE.Vector3(Math.cos(ang)*r, .12, Math.sin(ang)*r*.75 + R*.05);
+      const f = k/(Math.max(1,st.length-1));
+      const p = new THREE.Vector3((document.documentElement.dir==="rtl" ? .5-f : f-.5)*R*1.5, .12, (k%2 ? -1 : 1)*R*.24 + R*.12);
       const un = J.isUnlocked(s.key), sc = J.starsOf(s.key), boss = s.type!=="stage";
       const col = !un ? 0x5b6680 : sc ? 0xf5c542 : new THREE.Color(w.c1).getHex();
       const pad = new THREE.Mesh(new THREE.CylinderGeometry(boss?.75:.55, boss?.8:.6, .28, 10), mat(col, {emissive: sc ? 0xf5a400 : (un ? col : 0x000000), emissiveIntensity: sc ? .35 : (un ? .18 : 0), roughness:.4}));
@@ -188,7 +188,7 @@ function render(focus){
   }
 
   // الجزيرة الذهبية والكأس
-  const finalOpen = J.allCleared(), won = S.finalWon, fpos = new THREE.Vector3(0, N*4.2 + 4, 0);
+  const finalOpen = J.allCleared(), won = S.finalWon, fpos = new THREE.Vector3(0, N*4.2 + 5, 0);
   const fisl = makeIsland({top:0xf5c542, side:0xb07a12}, 4.2); fisl.group.position.copy(fpos); scene.add(fisl.group);
   fisl.group.children[0].material = mat(0xf5c542, {metalness:.6, roughness:.35, emissive:0xa86b00, emissiveIntensity:.15});
   const cupPts = [[0,0],[.9,0],[.95,.15],[.35,.3],[.25,.9],[.35,1.1],[1.05,1.35],[1.2,2.4],[1.1,2.45],[.2,1.6],[0,1.6]].map(([x,y]) => new THREE.Vector2(x,y));
@@ -202,7 +202,7 @@ function render(focus){
   anim.push(t => { fisl.group.position.y = fpos.y + Math.sin(t*.7)*.4; });
 
   // غيوم متطايرة
-  for(let c=0;c<16;c++){ const cl = cloud(rnd(1,2.2)); const r = rnd(28,55), a = rnd(0,Math.PI*2), y = rnd(-8,34); cl.position.set(Math.cos(a)*r, y, Math.sin(a)*r); scene.add(cl);
+  for(let c=0;c<16;c++){ const low = c%3===0, cl = cloud(low ? rnd(2,3.2) : rnd(2.5,4)); const r = low ? rnd(10,40) : rnd(80,110), a = rnd(0,Math.PI*2), y = low ? rnd(-22,-14) : rnd(-5,40); cl.position.set(Math.cos(a)*r, y, Math.sin(a)*r); scene.add(cl);
     const sp2 = rnd(.01,.03); anim.push((t, dt) => { const ang = Math.atan2(cl.position.z, cl.position.x) + sp2*dt; const rr = Math.hypot(cl.position.x, cl.position.z); cl.position.x = Math.cos(ang)*rr; cl.position.z = Math.sin(ang)*rr; }); }
 
   /* ---------- الكاميرا والتحكم ---------- */
@@ -213,7 +213,7 @@ function render(focus){
   cur = Math.max(0, Math.min(N, cur));
   const camTarget = new THREE.Vector3(0, 10, 0), goal = targets[cur].clone();
   const islAngle = i => i>=N ? 0 : Math.atan2(islandsInfo[i].pos.z, islandsInfo[i].pos.x);
-  const baseDist = () => { const a = (host.clientWidth||1)/(host.clientHeight||1); return Math.min(32, Math.max(17, 6.3/(Math.tan(THREE.MathUtils.degToRad(25))*a))); };
+  const baseDist = () => { const a = (host.clientWidth||1)/(host.clientHeight||1); return Math.min(36, Math.max(19, 7.6/(Math.tan(THREE.MathUtils.degToRad(25))*a))); };
   let theta = islAngle(cur), phi = 1.05, dist = 60, goalDist = baseDist(), goalTheta = theta;
   const applyCam = () => { camera.position.set(camTarget.x + Math.cos(theta)*Math.sin(phi)*dist, camTarget.y + Math.cos(phi)*dist, camTarget.z + Math.sin(theta)*Math.sin(phi)*dist); camera.lookAt(camTarget); };
   const focusIsland = i => { cur = (i+N+1)%(N+1); goal.copy(targets[cur]); goalTheta = cur>=N ? theta : islAngle(cur); goalDist = baseDist() + (cur>=N ? 1 : 0); updateHud(); };
