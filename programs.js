@@ -3,11 +3,11 @@
 (function(){
 "use strict";
 const P = {
- ar:{ nav:"🌟 برامجنا", kick:"🌟 برامجنا", title:"استثمر في أثمن ما تملك: عقل طفلك", sub:"برامج تعليمية ممتعة تبني مهارات المستقبل، لكل الأطفال ابتداءً من 6 سنوات.",
+ ar:{ nav:"🌟 برامجنا", kick:"🌟 برامجنا", title:"استثمر في أثمن ما تملك: عقل طفلك", sub:"برامج تعليمية ممتعة تبني مهارات المستقبل للأطفال ابتداءً من 6 سنوات، ودعم مدرسي لكل المستويات.", regWa:"📝 سجّل طفلك عبر واتساب", levelsT:"اختر مستوى طفلك:", waLevel:"السلام عليكم، أريد تسجيل طفلي في «{p}» — المستوى: {l}.",
       age:"👦👧 ابتداءً من 6 سنوات", reg:"📝 سجّل طفلك الآن", ask:"💬 استفسار عبر واتساب", why:"ماذا سيكتسب طفلك؟",
       waMsg:"السلام عليكم، أريد معلومات عن برنامج «{p}» لطفلي.", bottomT:"لديك سؤال قبل التسجيل؟", bottomD:"نحن هنا لنساعدك في اختيار البرنامج المناسب لطفلك.", bottomB:"💬 تحدّث معنا على واتساب",
       teaserT:"🌟 برامجنا لطفلك", teaserB:"اكتشف كل البرامج ←" },
- fr:{ nav:"🌟 Nos programmes", kick:"🌟 Nos programmes", title:"Investissez dans ce que vous avez de plus précieux : l'esprit de votre enfant", sub:"Des programmes ludiques qui construisent les compétences de demain, pour tous les enfants dès 6 ans.",
+ fr:{ nav:"🌟 Nos programmes", kick:"🌟 Nos programmes", title:"Investissez dans ce que vous avez de plus précieux : l'esprit de votre enfant", sub:"Des programmes ludiques qui construisent les compétences de demain dès 6 ans, et un soutien scolaire pour tous les niveaux.", regWa:"📝 Inscrire mon enfant sur WhatsApp", levelsT:"Choisissez le niveau de votre enfant :", waLevel:"Bonjour, je souhaite inscrire mon enfant au « {p} » — niveau : {l}.",
       age:"👦👧 Dès 6 ans", reg:"📝 Inscrire mon enfant", ask:"💬 Question sur WhatsApp", why:"Ce que votre enfant va acquérir",
       waMsg:"Bonjour, je souhaite des informations sur le programme « {p} » pour mon enfant.", bottomT:"Une question avant l'inscription ?", bottomD:"Nous sommes là pour vous aider à choisir le programme adapté à votre enfant.", bottomB:"💬 Parlez-nous sur WhatsApp",
       teaserT:"🌟 Nos programmes pour votre enfant", teaserB:"Découvrir tous les programmes →" }
@@ -63,6 +63,15 @@ const SVG = {
   </g>
   <g fill="#ffe08a"><text x="210" y="130" font-size="22">♪</text><text x="196" y="246" font-size="26">♫</text></g>
  </svg>`,
+school: `<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <rect x="40" y="30" width="200" height="130" rx="10" fill="#1f4d3a" stroke="#8a5526" stroke-width="10"/>
+  <g font-family="Cairo,Arial,sans-serif" font-weight="800" fill="#eaf7ee"><text x="60" y="72" font-size="24">x² + 2x = 8</text><text x="60" y="108" font-size="22">a = πr²</text><text x="60" y="142" font-size="20" fill="#ffe08a">H₂O ✓</text></g>
+  <rect x="96" y="160" width="88" height="8" rx="3" fill="#8a5526"/><rect x="110" y="152" width="24" height="6" rx="2" fill="#fff"/>
+  <g transform="translate(262 92)"><path d="M10 40h96v118a10 10 0 0 1-10 10H20a10 10 0 0 1-10-10z" fill="#f7931e"/><path d="M10 40q48-46 96 0" fill="#ff7a00"/><rect x="34" y="78" width="48" height="40" rx="8" fill="#ffb35c"/><path d="M40 52h36" stroke="#c25e00" stroke-width="6" stroke-linecap="round"/><path d="M0 70v60M116 70v60" stroke="#c25e00" stroke-width="8" stroke-linecap="round"/></g>
+  <g transform="translate(36 186)"><rect width="120" height="22" rx="4" fill="#ff5d6c"/><rect y="24" width="132" height="22" rx="4" fill="#4fa3ff"/><rect x="6" y="48" width="112" height="20" rx="4" fill="#2ecc8f"/><path d="M12 6h90M12 30h100M18 54h86" stroke="rgba(255,255,255,.55)" stroke-width="3"/></g>
+  <g transform="translate(176 196) rotate(-28)"><rect width="90" height="14" rx="3" fill="#f5c542"/><path d="M90 0l18 7-18 7z" fill="#f3d6a8"/><path d="M104 5l4 2-4 2z" fill="#333"/><rect x="-10" width="12" height="14" rx="3" fill="#ff8a9a"/></g>
+  <g transform="translate(300 30)"><path d="M-48 18l48-20 48 20-48 20z" fill="#0a1a36" stroke="#f5c542" stroke-width="3"/><path d="M-28 28v18q28 16 56 0V28" fill="#0a1a36" stroke="#f5c542" stroke-width="3"/><path d="M40 22v26" stroke="#f5c542" stroke-width="3"/><circle cx="40" cy="52" r="5" fill="#f5c542"/></g>
+ </svg>`,
  coding: `<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <rect x="70" y="40" width="260" height="160" rx="14" fill="#1b2a4a" stroke="#a98bff" stroke-width="4"/><rect x="84" y="54" width="232" height="132" rx="6" fill="#0a1426"/>
   <path d="M40 206h320l-16 24H56z" fill="#a98bff"/><rect x="170" y="210" width="60" height="6" rx="3" fill="#5a3fc0"/>
@@ -96,6 +105,12 @@ const PROGRAMS = [
         b:["🗣️ نطق سليم منذ الصغر","💬 مفردات ومحادثة يومية","🌍 باب مفتوح على العالم"], msg:"اللغة التي يتعلّمها طفلك اليوم بسهولة، هي الباب الذي سيفتح له فرص الغد." },
    fr:{ name:"Anglais", desc:"Votre enfant apprend l'anglais par la conversation, les chansons et les jeux : il l'acquiert avec aisance et plaisir.",
         b:["🗣️ Une bonne prononciation dès le plus jeune âge","💬 Vocabulaire et conversation du quotidien","🌍 Une porte ouverte sur le monde"], msg:"La langue que votre enfant apprend facilement aujourd'hui est la porte qui lui ouvrira les opportunités de demain." } },
+ { id:"school", svg:"school", c1:"#ff7a6b", c2:"#b23a2e", url:"", levels:{ar:["الابتدائي","الإعدادي","الثانوي"], fr:["Primaire","Collège","Lycée"]},
+   age:{ar:"🎒 ابتدائي · إعدادي · ثانوي", fr:"🎒 Primaire · Collège · Lycée"},
+   ar:{ name:"الدعم المدرسي", desc:"مواكبة دراسية منظّمة لتلاميذ الابتدائي والإعدادي والثانوي: شرح الدروس، وحلّ التمارين، والتحضير الجيد للفروض والامتحانات.",
+        b:["📚 فهم عميق للدروس وسدّ الثغرات","✍️ منهجية في حلّ التمارين والمراجعة","🏅 استعداد قوي للفروض والامتحانات"], msg:"النجاح لا يأتي صدفة… مواكبة صحيحة اليوم تصنع الفرق في نتائج طفلك آخر السنة." },
+   fr:{ name:"Soutien scolaire", desc:"Un accompagnement structuré pour les élèves du primaire, du collège et du lycée : explication des cours, résolution d'exercices et bonne préparation aux contrôles et examens.",
+        b:["📚 Une compréhension solide des cours et des lacunes comblées","✍️ Une méthode pour les exercices et les révisions","🏅 Une préparation sérieuse aux contrôles et examens"], msg:"La réussite n'arrive pas par hasard… un bon accompagnement aujourd'hui fait la différence dans les résultats de fin d'année." } },
  { id:"coding", svg:"coding", c1:"#a98bff", c2:"#5a3fc0", url:"https://forms.gle/oxdZm5vGdJjM7BDn8",
    ar:{ name:"الإعلاميات والبرمجة", desc:"يتعلّم طفلك استعمال الحاسوب بذكاء، ثم يبرمج ألعابه وقصصه التفاعلية الأولى بلغات مصمَّمة خصيصاً للأطفال.",
         b:["🛡️ مهارات رقمية آمنة ومسؤولة","🧠 تفكير حسابي وتنظيم الأفكار","🎮 من مستهلك للشاشة إلى مبدع عليها"], msg:"الشاشة في يد طفلك… اجعلها أداة للإبداع، لا للتسلية فقط." },
@@ -103,6 +118,7 @@ const PROGRAMS = [
         b:["🛡️ Compétences numériques sûres et responsables","🧠 Pensée informatique et organisation des idées","🎮 De consommateur d'écran à créateur"], msg:"L'écran est entre les mains de votre enfant… faites-en un outil de création, pas seulement de divertissement." } }
 ];
 const wa = () => (typeof D!=="undefined" && D.settings && D.settings.whatsapp) || "212706600479";
+const waLevel = (name, l) => "https://wa.me/" + wa() + "?text=" + encodeURIComponent(pt("waLevel").replace("{p}", name).replace("{l}", l));
 const waLink = name => "https://wa.me/" + wa() + "?text=" + encodeURIComponent(pt("waMsg").replace("{p}", name));
 
 window.viewPrograms = function(){
@@ -112,14 +128,16 @@ window.viewPrograms = function(){
     <div class="pgjump">${PROGRAMS.map(p=>`<a href="#programs" data-jump="${p.id}" style="--c1:${p.c1}">${e(p[L].name)}</a>`).join("")}</div></section>
   <div class="pglist">${PROGRAMS.map((p,i)=>`
     <article class="pg ${i%2?"rev":""}" id="pg-${p.id}" style="--c1:${p.c1};--c2:${p.c2}">
-      <div class="pgart">${SVG[p.svg]}<span class="pgage">${pt("age")}</span></div>
+      <div class="pgart">${SVG[p.svg]}<span class="pgage">${p.age ? p.age[L] : pt("age")}</span></div>
       <div class="pgtxt">
         <h2>${e(p[L].name)}</h2>
         <p class="pgdesc">${e(p[L].desc)}</p>
         <h4>${pt("why")}</h4>
         <ul>${p[L].b.map(x=>`<li>${e(x)}</li>`).join("")}</ul>
         <blockquote class="pgmsg">${e(p[L].msg)}</blockquote>
-        <div class="pgcta"><a class="btn big-btn" href="${p.url}" target="_blank" rel="noopener">${pt("reg")}</a><a class="btn ghost" href="${waLink(p[L].name)}" target="_blank" rel="noopener">${pt("ask")}</a></div>
+        ${p.levels ? `<div class="pglevels"><span>${pt("levelsT")}</span>${p.levels[L].map(l=>`<a href="${waLevel(p[L].name, l)}" target="_blank" rel="noopener">${e(l)}</a>`).join("")}</div>` : ""}
+        <div class="pgcta">${p.url ? `<a class="btn big-btn" href="${p.url}" target="_blank" rel="noopener">${pt("reg")}</a><a class="btn ghost" href="${waLink(p[L].name)}" target="_blank" rel="noopener">${pt("ask")}</a>`
+          : `<a class="btn big-btn" href="${waLink(p[L].name)}" target="_blank" rel="noopener">${pt("regWa")}</a>`}</div>
       </div>
     </article>`).join("")}</div>
   <section class="pgbottom"><h2>${e(pt("bottomT"))}</h2><p>${e(pt("bottomD"))}</p><a class="btn big-btn" href="https://wa.me/${wa()}" target="_blank" rel="noopener">${pt("bottomB")}</a></section>`;
@@ -128,7 +146,7 @@ window.viewPrograms = function(){
 window.programsTeaser = function(){
   const L = lang();
   return `<section class="pgteaser"><div class="sec-title"><h2>${e(pt("teaserT"))}</h2><a class="btn sm ghost" href="#programs">${e(pt("teaserB"))}</a></div>
-    <div class="pgtgrid">${PROGRAMS.map(p=>`<a class="pgt" href="#programs" data-pg="${p.id}" style="--c1:${p.c1};--c2:${p.c2}"><div class="pgtart">${SVG[p.svg]}</div><b>${e(p[L].name)}</b><small>${pt("age")}</small></a>`).join("")}</div></section>`;
+    <div class="pgtgrid">${PROGRAMS.map(p=>`<a class="pgt" href="#programs" data-pg="${p.id}" style="--c1:${p.c1};--c2:${p.c2}"><div class="pgtart">${SVG[p.svg]}</div><b>${e(p[L].name)}</b><small>${p.age ? p.age[L] : pt("age")}</small></a>`).join("")}</div></section>`;
 };
 document.addEventListener("click", ev => { const a = ev.target.closest && ev.target.closest(".pgt[data-pg]"); if(!a) return;
   const id = a.dataset.pg; setTimeout(()=>{ const t = document.getElementById("pg-"+id); if(t) t.scrollIntoView({behavior:"smooth", block:"start"}); }, 250); });
