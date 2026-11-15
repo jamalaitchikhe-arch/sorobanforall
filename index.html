@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NMRH9BS2');</script>
-<!-- End Google Tag Manager -->
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-136WN3TQJX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-136WN3TQJX',{send_page_view:false});</script>
+<!-- End Google Analytics 4 -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>سوروبان للجميع | Soroban for All</title>
@@ -565,9 +566,6 @@ nav a.navj.on{color:#1a1200}
 </style>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NMRH9BS2" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 <header>
   <div class="wrap bar">
     <a class="brand" href="#home"><img src="logo-soroban.png" alt="Soroban for All"><div><b data-i="brand"></b><small>SOROBAN FOR ALL</small></div></a>
@@ -814,9 +812,13 @@ function setNav(n){ document.querySelectorAll("nav a").forEach(a => a.classList.
 $("#burger").onclick = () => $("#nav").classList.toggle("open");
 $("#langBtn").onclick = () => { LANG = LANG==="ar" ? "fr" : "ar"; try{ localStorage.setItem("sfa_lang", LANG); }catch(e){} applyLang(); route(true); };
 window.addEventListener("hashchange", () => route());
-/* ===== الإحصائيات (Google Tag Manager): أحداث مجهولة فقط — لا أسماء ولا رموز ===== */
+/* ===== الإحصائيات (Google Analytics 4: G-136WN3TQJX): أحداث مجهولة فقط — لا أسماء ولا رموز ===== */
 window.dataLayer = window.dataLayer || [];
-function track(event, params){ try{ window.dataLayer.push(Object.assign({event}, params||{})); }catch(e){} }
+function track(event, params){ try{
+  if(typeof gtag!=="function") return;
+  if(event==="virtual_page_view") gtag("event", "page_view", params||{});
+  else gtag("event", event, params||{});
+}catch(e){} }
 window.track = track;
 let lastTracked = null;
 function trackPage(){ const h = (location.hash.slice(1) || "home").split("/")[0]; const path = "/" + (h==="home" ? "" : h);
