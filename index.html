@@ -549,6 +549,16 @@ nav a.navj.on{color:#1a1200}
 .pgtart svg{width:100%;height:auto;display:block}
 .pgt b{font-size:1.02rem;margin-top:4px}.pgt small{color:var(--muted)}
 @media(max-width:800px){.pgtgrid{grid-template-columns:repeat(2,1fr)}}
+
+/* ===== فيديو الإعلان ===== */
+.advid{margin:22px 0 10px}
+.advwrap{position:relative;border-radius:24px;overflow:hidden;border:2px solid rgba(245,197,66,.5);box-shadow:var(--shadow),0 0 40px rgba(79,163,255,.15);background:#0a1a36;aspect-ratio:16/9}
+.advv{display:block;width:100%;height:100%;object-fit:cover}
+.advsnd{position:absolute;bottom:12px;inset-inline-end:12px;border:1px solid rgba(255,255,255,.35);background:rgba(8,20,45,.75);backdrop-filter:blur(6px);color:#fff;font-family:inherit;font-weight:800;border-radius:99px;padding:7px 14px;cursor:pointer}
+.advcta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;max-height:0;opacity:0;overflow:hidden;transform:translateY(-10px);transition:max-height .5s,opacity .5s,transform .5s,margin .5s}
+.advcta.show{max-height:140px;opacity:1;transform:none;margin-top:14px}
+.advcta .big-btn{font-size:1.2rem;padding:14px 30px;animation:glow 1.8s ease-in-out infinite}
+.advcta .advwa{border-color:#25d366;color:#7cf0a8}
 </style>
 </head>
 <body>
@@ -599,7 +609,7 @@ ar:{
  setStats:"📊 أرقام المنصة", setStudents:"عدد المتدربين الحقيقي (اتركه فارغاً لإخفائه)", setYears:"سنوات الخبرة (اختياري)", setStatsD:"تظهر هذه الأرقام في الصفحة الرئيسية. اكتب الأرقام الحقيقية فقط.",
  testiAdm:"💬 آراء أولياء الأمور والتلاميذ", testiAdmD:"أضف آراءً حقيقية فقط وبإذن أصحابها (الاسم الأول يكفي).", tName:"الاسم *", tRole:"الصفة (مثال: ولية أمر، تلميذ في المجموعة 1)", tText:"الرأي *", tStars:"التقييم", noTesti:"لا توجد آراء بعد",
  schedT:"📅 مواعيد الحصص", schedD:"مواعيد حصص هذه المجموعة (تظهر في أعلى صفحة المجموعة)", schedPh:"مثال: السبت 10:00 – 11:00 · الأربعاء 18:00 – 19:00 (عبر Google Meet)", jBtn:"رحلة الأبطال",
- navPrograms:"🌟 برامجنا",
+ navPrograms:"🌟 برامجنا", advReg:"📝 سجّل طفلك الآن", advWa:"💬 للاستفسار عبر واتساب", advSound:"🔊 تشغيل الصوت", advMute:"🔇 كتم الصوت",
  brand:"سوروبان للجميع", navJourney:"🏆 رحلة الأبطال", jPromoT:"🏆 رحلة الأبطال — مجاناً!", jPromoD:"6 عوالم، حرّاس، نجوم ومكافآت… حتى الكأس الذهبية ولقب «العقل العبقري». مجاناً.", jPromoB:"🚀 ابدأ المغامرة", navHome:"الرئيسية", navAnn:"الإعلانات", navGroups:"المجموعات", langSwitch:"Français",
  slogan:"نكتشف المواهب، ونصنع مهارات المستقبل", teacherSpace:"فضاء الأستاذ",
  group:"المجموعة", heroTag:"منصة الحساب الذهني", heroT1:"سوروبان", heroT2:"للجميع",
@@ -664,7 +674,7 @@ fr:{
  setStats:"📊 Chiffres de la plateforme", setStudents:"Nombre réel d'apprenants (vide = masqué)", setYears:"Années d'expérience (facultatif)", setStatsD:"Ces chiffres s'affichent sur la page d'accueil. N'indique que des chiffres réels.",
  testiAdm:"💬 Avis des parents et des élèves", testiAdmD:"N'ajoute que des avis réels, avec l'accord de leurs auteurs (le prénom suffit).", tName:"Nom *", tRole:"Qualité (ex. : maman d'élève, élève du groupe 1)", tText:"Avis *", tStars:"Note", noTesti:"Aucun avis pour l'instant",
  schedT:"📅 Horaires des séances", schedD:"Horaires de ce groupe (affichés en haut de la page du groupe)", schedPh:"ex. : Samedi 10h00 – 11h00 · Mercredi 18h00 – 19h00 (sur Google Meet)", jBtn:"L'aventure des champions",
- navPrograms:"🌟 Programmes",
+ navPrograms:"🌟 Programmes", advReg:"📝 Inscrire mon enfant", advWa:"💬 Une question ? WhatsApp", advSound:"🔊 Activer le son", advMute:"🔇 Couper le son",
  brand:"Soroban pour tous", navJourney:"🏆 Aventure", jPromoT:"🏆 L'aventure des champions — gratuite !", jPromoD:"6 mondes, des gardiens, des étoiles et des récompenses… jusqu'à la coupe d'or et le titre de « Cerveau génial ». Gratuite.", jPromoB:"🚀 Commencer l'aventure", navHome:"Accueil", navAnn:"Annonces", navGroups:"Groupes", langSwitch:"العربية",
  slogan:"Nous révélons les talents et construisons les compétences de demain", teacherSpace:"Espace enseignant",
  group:"Groupe", heroTag:"Plateforme de calcul mental", heroT1:"Soroban", heroT2:"pour tous",
@@ -882,6 +892,7 @@ function viewHome(){
     </div>
     <div class="hero-art"><div class="ring"><img src="logo-soroban.png" alt=""></div></div>
   </section>
+  ${adVideoHTML()}
   <div class="sec-title"><h2>${t("latestAnn")}</h2><a class="btn sm ghost" href="#announcements">${t("all")}</a></div>
   ${ann.length ? `<div class="grid g2">${ann.map(annCard).join("")}</div>` : emptyBox("📭", t("noAnn"))}
   <div class="sec-title"><h2>${t("groupsTitle")}</h2></div>
@@ -889,7 +900,7 @@ function viewHome(){
   ${testimonialsSection()}
   ${window.programsTeaser ? programsTeaser() : ""}
   ${statsBand()}`;
-  animateCounters();
+  animateCounters(); bindAdVideo(app);
 }
 /* ===== الإحصائيات (أرقام حقيقية فقط) والشهادات ===== */
 function statsBand(){
@@ -922,6 +933,30 @@ function testimonialsSection(){
       <blockquote dir="auto">${esc(x.text)}</blockquote>
       <figcaption><span class="tav">${esc((x.name||"?").trim().charAt(0))}</span><span><b dir="auto">${esc(x.name||"")}</b><small dir="auto">${esc(x.role||"")}</small></span></figcaption></figure>`; }).join("")}</div>`;
 }
+/* ===== فيديو الإعلان: تشغيل تلقائي ومتكرر + زر التسجيل بعد أول مشاهدة كاملة ===== */
+let advSeen = false;
+function adVideoHTML(){
+  const wa = (D.settings && D.settings.whatsapp) || "212706600479";
+  return `<section class="advid"><div class="advwrap">
+    <video class="advv" src="media/smarteducam-ad.mp4" poster="media/smarteducam-ad.jpg" muted autoplay playsinline preload="metadata"></video>
+    <button type="button" class="advsnd">${t("advSound")}</button>
+  </div>
+  <div class="advcta ${advSeen?"show":""}"><a class="btn big-btn" href="#programs">${t("advReg")}</a><a class="btn ghost advwa" href="https://wa.me/${wa}" target="_blank" rel="noopener">${t("advWa")}</a></div></section>`;
+}
+function bindAdVideo(root){
+  (root||document).querySelectorAll(".advid").forEach(sec => {
+    const v = sec.querySelector("video"), cta = sec.querySelector(".advcta"), snd = sec.querySelector(".advsnd");
+    if(!v || v._bound) return; v._bound = 1;
+    const tryPlay = () => { const p = v.play(); if(p && p.catch) p.catch(()=>{}); };
+    v.addEventListener("ended", () => { advSeen = true; cta.classList.add("show"); v.currentTime = 0; tryPlay(); });
+    snd.onclick = () => { v.muted = !v.muted; snd.textContent = v.muted ? t("advSound") : t("advMute"); if(!v.muted && v.paused) tryPlay(); };
+    if("IntersectionObserver" in window){
+      const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) tryPlay(); else v.pause(); }), {threshold:.25});
+      io.observe(v);
+    } else tryPlay();
+  });
+}
+window.adVideoHTML = adVideoHTML; window.bindAdVideo = bindAdVideo;
 function viewAnn(){
   const list = sortedAnn();
   app.innerHTML = `<h1>${t("annTitle")}</h1><p class="muted">${t("annLead")}</p>

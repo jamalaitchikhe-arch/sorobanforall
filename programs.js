@@ -126,6 +126,7 @@ window.viewPrograms = function(){
   document.getElementById("app").innerHTML = `
   <section class="pghero"><span class="ckick">${pt("kick")}</span><h1>${e(pt("title"))}</h1><p>${e(pt("sub"))}</p>
     <div class="pgjump">${PROGRAMS.map(p=>`<a href="#programs" data-jump="${p.id}" style="--c1:${p.c1}">${e(p[L].name)}</a>`).join("")}</div></section>
+  ${window.adVideoHTML ? adVideoHTML() : ""}
   <div class="pglist">${PROGRAMS.map((p,i)=>`
     <article class="pg ${i%2?"rev":""}" id="pg-${p.id}" style="--c1:${p.c1};--c2:${p.c2}">
       <div class="pgart">${SVG[p.svg]}<span class="pgage">${p.age ? p.age[L] : pt("age")}</span></div>
@@ -141,6 +142,7 @@ window.viewPrograms = function(){
       </div>
     </article>`).join("")}</div>
   <section class="pgbottom"><h2>${e(pt("bottomT"))}</h2><p>${e(pt("bottomD"))}</p><a class="btn big-btn" href="https://wa.me/${wa()}" target="_blank" rel="noopener">${pt("bottomB")}</a></section>`;
+  if(window.bindAdVideo) bindAdVideo(document.getElementById("app"));
   document.querySelectorAll("[data-jump]").forEach(a => a.onclick = ev => { ev.preventDefault(); const t = document.getElementById("pg-"+a.dataset.jump); if(t) t.scrollIntoView({behavior:"smooth", block:"start"}); });
 };
 window.programsTeaser = function(){
