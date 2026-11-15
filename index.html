@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NMRH9BS2');</script>
+<!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>سوروبان للجميع | Soroban for All</title>
@@ -562,6 +565,9 @@ nav a.navj.on{color:#1a1200}
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NMRH9BS2" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <header>
   <div class="wrap bar">
     <a class="brand" href="#home"><img src="logo-soroban.png" alt="Soroban for All"><div><b data-i="brand"></b><small>SOROBAN FOR ALL</small></div></a>
@@ -808,7 +814,25 @@ function setNav(n){ document.querySelectorAll("nav a").forEach(a => a.classList.
 $("#burger").onclick = () => $("#nav").classList.toggle("open");
 $("#langBtn").onclick = () => { LANG = LANG==="ar" ? "fr" : "ar"; try{ localStorage.setItem("sfa_lang", LANG); }catch(e){} applyLang(); route(true); };
 window.addEventListener("hashchange", () => route());
+/* ===== الإحصائيات (Google Tag Manager): أحداث مجهولة فقط — لا أسماء ولا رموز ===== */
+window.dataLayer = window.dataLayer || [];
+function track(event, params){ try{ window.dataLayer.push(Object.assign({event}, params||{})); }catch(e){} }
+window.track = track;
+let lastTracked = null;
+function trackPage(){ const h = (location.hash.slice(1) || "home").split("/")[0]; const path = "/" + (h==="home" ? "" : h);
+  if(path===lastTracked) return; lastTracked = path;
+  track("virtual_page_view", {page_path: path, page_location: location.origin + path, page_title: document.title, language: (typeof LANG!=="undefined"?LANG:"ar")}); }
+document.addEventListener("click", e => {
+  const a = e.target.closest && e.target.closest("a[href]"); if(!a) return;
+  const href = a.getAttribute("href") || "";
+  const prog = (a.closest(".pg") && a.closest(".pg").id.replace("pg-","")) || "";
+  if(href.includes("forms.gle")) track("register_click", {program: prog || "unknown"});
+  else if(href.includes("wa.me")) track("whatsapp_click", {program: prog || "", place: a.className.includes("wa") && !prog ? "floating" : (a.closest(".advid") ? "ad_video" : (a.closest(".pgbottom") ? "programs_bottom" : (prog ? "program_card" : "other")))});
+  else if(href==="#programs" && a.closest(".advid")) track("ad_cta_click", {});
+  else if(href==="#journey" && a.closest(".comp")) track("competition_banner_click", {});
+}, true);
 function route(keepScroll){
+  trackPage();
   stopGames();
   if(window.SFA3D_cleanup){ try{ window.SFA3D_cleanup(); }catch(e){} }
   if(window.SFAMusic && !/^#?journey/.test(decodeURIComponent(location.hash.slice(1)||"home"))) SFAMusic.stop();
@@ -948,7 +972,7 @@ function bindAdVideo(root){
     const v = sec.querySelector("video"), cta = sec.querySelector(".advcta"), snd = sec.querySelector(".advsnd");
     if(!v || v._bound) return; v._bound = 1;
     const tryPlay = () => { const p = v.play(); if(p && p.catch) p.catch(()=>{}); };
-    v.addEventListener("ended", () => { advSeen = true; cta.classList.add("show"); v.currentTime = 0; tryPlay(); });
+    v.addEventListener("ended", () => { if(!advSeen) track("ad_video_complete", {}); advSeen = true; cta.classList.add("show"); v.currentTime = 0; tryPlay(); });
     snd.onclick = () => { v.muted = !v.muted; snd.textContent = v.muted ? t("advSound") : t("advMute"); if(!v.muted && v.paused) tryPlay(); };
     if("IntersectionObserver" in window){
       const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) tryPlay(); else v.pause(); }), {threshold:.25});
@@ -1039,7 +1063,7 @@ function showWelcome(name, gen, visits){
 }
 
 async function tryUnlock(g, code){
-  try{ unlocked[g.id] = await decryptJSON(g.blob, code); sess.set("g"+g.id, normCode(code)); return true; }
+  try{ unlocked[g.id] = await decryptJSON(g.blob, code); track("group_login", {group: String(g.id)}); sess.set("g"+g.id, normCode(code)); return true; }
   catch(e){ return false; }
 }
 async function viewGroup(id, tab){

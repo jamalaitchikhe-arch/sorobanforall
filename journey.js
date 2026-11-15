@@ -165,7 +165,7 @@ function viewCreate(){
   $("#jName").focus();
   $("#jCreate").onsubmit = e => { e.preventDefault(); const n = $("#jName").value.trim().replace(/\s+/g," ");
     if(n.length<2) return $("#jErr").textContent = jt("needName"); if(!gen) return $("#jErr").textContent = jt("needGen");
-    S.name = n; S.gen = gen; S.avatar = av; save(); renderMap();
+    S.name = n; S.gen = gen; S.avatar = av; save(); if(window.track) track("journey_start", {}); renderMap();
     if(typeof showWelcome==="function") showWelcome(n, gen, 1); };
 }
 
@@ -372,6 +372,7 @@ function play(key){
       return;
     }
     const stars = ok>=st.s3 ? 3 : ok>=st.s2 ? 2 : ok>=st.pass ? 1 : 0, passed = stars>0;
+    if(window.track){ track("stage_complete", {stage: st.key, stage_type: st.type, passed, stars, mode: "competition"}); if(st.type==="final" && passed) track("final_trophy_won", {}); }
     const old = st.key==="final" ? (S.finalWon?3:0) : starsOf(st.key);
     const rBefore = curRank();
     let xp = ok*10 + speed*5 + (passed && isBoss ? 30 : 0) + (st.type==="final" && passed ? 200 : 0), coins = 0;
@@ -579,7 +580,7 @@ function askFeedback(force){
     if(!rate){ e.preventDefault(); m.querySelector("#fbErr").textContent = ft("pick"); return; }
     build();
     const cur = Object.assign(fresh(), store.get(KEY, {}));
-    const first = !cur.feedback; cur.feedback = {date:new Date().toISOString(), rate}; if(first) cur.coins += 10;
+    const first = !cur.feedback; cur.feedback = {date:new Date().toISOString(), rate}; if(window.track) track("feedback_sent", {rating: rate}); if(first) cur.coins += 10;
     store.set(KEY, cur); if(S) S = cur;
     setTimeout(()=>{
       m.querySelector(".fbbox").innerHTML = `<div class="fbdone"><div class="fbbig">🎉</div><h2>${ft(cur.gen==="f"?"thanksF":"thanks")}</h2>${first?`<p class="fbcoins">${ft("thanksD")}</p>`:""}<button class="btn" id="fbOk">OK</button></div>`;
